@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VipDesk — Atendimento omnichannel, CRM e agenda em uma plataforma</title>
+<meta name="description" content="O VipDesk reúne WhatsApp, Instagram, e-mail e telefonia num só atendimento, com CRM de vendas, automações e agenda integrada ao Google Calendar e ao Microsoft 365. Uma solução Vipphone Software.">
+<link rel="icon" href="assets/vipdesk-icon.png">
+<meta property="og:title" content="VipDesk — Atendimento omnichannel, CRM e agenda">
+<meta property="og:description" content="WhatsApp, Instagram, e-mail e telefonia num só atendimento, com CRM, automações e agenda integrada.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vipdesk.com.br">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+  :root {
+    --roxo: #5c2d6f;
+    --roxo-claro: #7e3e97;
+    --teal: #00a9b7;
+    --tinta: #1f2430;
+    --texto: #4b5563;
+    --suave: #f7f6f9;
+    --borda: #e6e3ec;
+    --branco: #ffffff;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--texto);
+    background: var(--branco);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { color: var(--tinta); line-height: 1.2; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(32px, 5vw, 50px); font-weight: 800; letter-spacing: -0.02em; }
+  h2 { font-size: clamp(25px, 3.4vw, 34px); font-weight: 800; letter-spacing: -0.015em; }
+  h3 { font-size: 18px; font-weight: 700; }
+  p { margin: 0; }
+  a { color: var(--roxo-claro); }
+
+  /* topo */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--borda);
+  }
+  .nav { display: flex; align-items: center; gap: 28px; height: 72px; }
+  .marca { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .marca img { height: 34px; width: auto; display: block; }
+  .marca span { font-size: 23px; font-weight: 400; color: var(--tinta); letter-spacing: -0.02em; }
+  .marca span b { font-weight: 800; }
+  .nav-links { display: flex; gap: 26px; margin-left: auto; }
+  .nav-links a { color: var(--texto); text-decoration: none; font-weight: 600; font-size: 15px; }
+  .nav-links a:hover { color: var(--roxo-claro); }
+  .btn {
+    display: inline-block; padding: 11px 22px; border-radius: 9px;
+    font-weight: 700; font-size: 15px; text-decoration: none; border: 1.5px solid transparent;
+  }
+  .btn-primario { background: var(--roxo-claro); color: #fff; }
+  .btn-primario:hover { background: var(--roxo); }
+  .btn-linha { border-color: var(--borda); color: var(--tinta); background: #fff; }
+  .btn-linha:hover { border-color: var(--roxo-claro); color: var(--roxo-claro); }
+  .btn-claro { background: #fff; color: var(--roxo); }
+
+  /* hero */
+  .hero {
+    background:
+      radial-gradient(1100px 460px at 78% -12%, rgba(0,169,183,.16), transparent 60%),
+      linear-gradient(150deg, #4a2459 0%, var(--roxo) 45%, var(--roxo-claro) 100%);
+    color: #fff; padding: 82px 0 88px;
+  }
+  .hero h1 { color: #fff; max-width: 15ch; }
+  .hero .sub { color: rgba(255,255,255,.9); font-size: 19px; margin-top: 20px; max-width: 56ch; }
+  .hero .acoes { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+  .hero .selo {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: rgba(255,255,255,.78); margin-bottom: 18px;
+  }
+
+  section { padding: 76px 0; }
+  .alt { background: var(--suave); }
+  .cabeca { max-width: 62ch; margin-bottom: 40px; }
+  .cabeca p { margin-top: 14px; font-size: 17px; }
+
+  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); gap: 20px; }
+  .card {
+    background: #fff; border: 1px solid var(--borda); border-radius: 13px;
+    padding: 26px; display: flex; flex-direction: column; gap: 9px;
+  }
+  .card .marcador {
+    width: 38px; height: 4px; border-radius: 3px;
+    background: linear-gradient(90deg, var(--roxo-claro), var(--teal));
+    margin-bottom: 6px;
+  }
+  .card p { font-size: 15.5px; }
+
+  ul.lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  ul.lista li { position: relative; padding-left: 27px; font-size: 16px; }
+  ul.lista li::before {
+    content: ""; position: absolute; left: 0; top: .55em;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--roxo-claro), var(--teal));
+  }
+
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; }
+  .painel {
+    background: #fff; border: 1px solid var(--borda);
+    border-radius: 13px; padding: 30px;
+  }
+  .painel h3 { margin-bottom: 12px; }
+
+  .faixa {
+    background: linear-gradient(120deg, var(--roxo) 0%, var(--roxo-claro) 100%);
+    color: #fff; border-radius: 15px; padding: 46px; text-align: center;
+  }
+  .faixa h2 { color: #fff; }
+  .faixa p { color: rgba(255,255,255,.9); margin: 14px auto 28px; max-width: 54ch; font-size: 17px; }
+
+  footer { background: #16181f; color: #9ba3af; padding: 54px 0 34px; font-size: 14.5px; }
+  footer h4 { color: #fff; font-size: 15px; margin: 0 0 14px; font-weight: 700; }
+  footer a { color: #c8cdd6; text-decoration: none; }
+  footer a:hover { color: #fff; }
+  .rodape-grade { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
+  .rodape-links { display: flex; flex-direction: column; gap: 9px; }
+  .rodape-fim {
+    margin-top: 38px; padding-top: 22px; border-top: 1px solid #262a34;
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13.5px;
+  }
+
+  @media (max-width: 860px) {
+    .duas { grid-template-columns: 1fr; gap: 32px; }
+    .rodape-grade { grid-template-columns: 1fr; gap: 30px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="marca" href="/">
+      <img src="assets/vipdesk-icon.png" alt="">
+      <span>vip<b>Desk</b></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#recursos">Recursos</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#privacidade">Privacidade</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-primario" href="https://app.vipdesk.com.br">Acessar a plataforma</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="selo">Uma solução Vipphone Software</div>
+    <h1>Todo o atendimento da sua empresa em um só lugar</h1>
+    <p class="sub">
+      O VipDesk reúne WhatsApp, Instagram, Facebook, Telegram, e-mail e telefonia
+      numa única tela, com CRM de vendas, automações e agenda integrada. Sua equipe
+      atende, vende e agenda sem trocar de sistema.
+    </p>
+    <div class="acoes">
+      <a class="btn btn-claro" href="#contato">Falar com um especialista</a>
+      <a class="btn btn-linha" href="#recursos" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.45)">Explorar recursos</a>
+    </div>
+  </div>
+</div>
+
+<section id="recursos">
+  <div class="wrap">
+    <div class="cabeca">
+      <h2>O que a plataforma faz</h2>
+      <p>
+        Uma base só para o time de atendimento e o time comercial, do primeiro
+        contato até o fechamento.
+      </p>
+    </div>
+    <div class="grade">
+      <div class="card">
+        <div class="marcador"></div>
+        <h3>Atendimento omnichannel</h3>
+        <p>
+          WhatsApp, Instagram, Facebook, Telegram e e-mail na mesma fila, com
+          histórico unificado por contato. O atendente vê a conversa inteira,
+          independentemente do canal por onde ela começou.
+        </p>
+      </div>
+      <div class="card">
+        <div class="marcador"></div>
+        <h3>Chamados e SLA</h3>
+        <p>
+          Abertura de chamados a partir da conversa, categorias, prazos de
+          primeira resposta e resolução, com alertas antes do vencimento e
+          escalonamento automático.
+        </p>
+      </div>
+      <div class="card">
+        <div class="marcador"></div>
+        <h3>CRM de vendas</h3>
+        <p>
+          Funis configuráveis, propostas, contratos e metas. Distribuição
+          automática de leads entre vendedores, com prazo de primeiro contato e
+          redistribuição de quem não responde.
+        </p>
+      </div>
+      <div class="card">
+        <div class="marcador"></div>
+        <h3>Automações</h3>
+        <p>
+          Regras por etapa do funil com condições e sequências de follow-up,
+          incluindo passos de espera que são cancelados automaticamente quando o
+          cliente responde.
+        </p>
+      </div>
+      <div class="card">
+        <div class="marcador"></div>
+        <h3>Agendamento</h3>
+        <p>
+          Agenda por profissional, portal público de auto-agendamento,
+          confirmação e lembretes por WhatsApp, com redução de faltas.
+        </p>
+      </div>
+      <div class="card">
+        <div class="marcador"></div>
+        <h3>Inteligência artificial</h3>
+        <p>
+          Apoio na triagem, resumo de conversas, sugestão de resposta e
+          classificação de oportunidades, sempre com o atendente no controle.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="agenda">
+  <div class="wrap">
+    <div class="cabeca">
+      <h2>Integração com a agenda do vendedor</h2>
+      <p>
+        O VipDesk se conecta ao <strong>Google Calendar</strong> e ao
+        <strong>Microsoft 365 / Teams</strong> para que o agendamento feito na
+        plataforma respeite a agenda real de quem vai atender.
+      </p>
+    </div>
+    <div class="duas">
+      <div class="painel">
+        <h3>Disponibilidade real</h3>
+        <p style="margin-bottom:16px">
+          Antes de oferecer um horário ao cliente, a plataforma consulta os
+          intervalos em que a agenda do profissional já está ocupada.
+        </p>
+        <ul class="lista">
+          <li>Lemos apenas <strong>início e fim</strong> dos compromissos</li>
+          <li>Não acessamos título, descrição, participantes nem local</li>
+          <li>Nenhum evento da sua agenda é copiado para a nossa base</li>
+        </ul>
+      </div>
+      <div class="painel">
+        <h3>Reunião criada automaticamente</h3>
+        <p style="margin-bottom:16px">
+          Quando o cliente marca um horário, o compromisso aparece na agenda do
+          profissional — sem ninguém copiar nada à mão.
+        </p>
+        <ul class="lista">
+          <li>Convite enviado ao cliente</li>
+          <li>Link do Google Meet ou do Microsoft Teams já no convite</li>
+          <li>Remarcação e cancelamento refletidos no mesmo evento</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:28px; font-size:15.5px">
+      A conexão é autorizada pelo próprio usuário e pode ser desfeita a qualquer
+      momento, na plataforma ou diretamente na conta Google ou Microsoft. Os
+      detalhes de tratamento de dados estão na
+      <a href="https://app.vipdesk.com.br/privacy">Política de Privacidade</a>.
+    </p>
+  </div>
+</section>
+
+<section id="privacidade">
+  <div class="wrap">
+    <div class="duas">
+      <div>
+        <h2>Privacidade e segurança</h2>
+        <p style="margin-top:16px; font-size:17px">
+          O VipDesk é operado pela Vipphone Software e tratado como
+          infraestrutura de atendimento dos nossos clientes. Trabalhamos em
+          conformidade com a Lei Geral de Proteção de Dados (LGPD).
+        </p>
+      </div>
+      <div>
+        <ul class="lista">
+          <li>Credenciais de integração armazenadas de forma criptografada</li>
+          <li>Acesso por perfil, com registro de auditoria das ações</li>
+          <li>Dados obtidos por APIs do Google usados apenas para as funções descritas, nunca para publicidade ou treino de modelos</li>
+          <li>
+            <a href="https://app.vipdesk.com.br/privacy">Política de Privacidade</a>
+            e <a href="https://app.vipdesk.com.br/terms">Termos de Uso</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="contato">
+  <div class="wrap">
+    <div class="faixa">
+      <h2>Quer conhecer o VipDesk?</h2>
+      <p>
+        Fale com nosso time comercial e agende uma demonstração da plataforma
+        com os canais e o funil da sua operação.
+      </p>
+      <a class="btn btn-claro" href="mailto:comercial@vipphone.com.br">comercial@vipphone.com.br</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="rodape-grade">
+      <div>
+        <a class="marca" href="/" style="margin-bottom:14px">
+          <img src="assets/vipdesk-icon.png" alt="">
+          <span style="color:#fff">vip<b>Desk</b></span>
+        </a>
+        <p style="max-width:38ch">
+          Plataforma de atendimento omnichannel, CRM e agenda.
+          Uma solução Vipphone Software.
+        </p>
+      </div>
+      <div>
+        <h4>Plataforma</h4>
+        <div class="rodape-links">
+          <a href="#recursos">Recursos</a>
+          <a href="#agenda">Integração de agenda</a>
+          <a href="https://app.vipdesk.com.br">Acessar</a>
+        </div>
+      </div>
+      <div>
+        <h4>Legal e contato</h4>
+        <div class="rodape-links">
+          <a href="https://app.vipdesk.com.br/privacy">Política de Privacidade</a>
+          <a href="https://app.vipdesk.com.br/terms">Termos de Uso</a>
+          <a href="mailto:suporte@vipphone.com.br">suporte@vipphone.com.br</a>
+        </div>
+      </div>
+    </div>
+    <div class="rodape-fim">
+      <span>Vipphone Software · Avenida Guaçuí, 1121 — Araçás, Linhares/ES, CEP 29903-394</span>
+      <span>© 2026 Vipphone Software. Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
