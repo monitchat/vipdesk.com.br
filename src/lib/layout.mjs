@@ -132,9 +132,7 @@ ${page.indexable === false
 ${page.article ? html`<meta property="article:published_time" content="${page.article.published}">
 ${page.article.modified ? html`<meta property="article:modified_time" content="${page.article.modified}">` : ''}` : ''}
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="preload" href="/assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>${CSS}</style>
 ${page.indexable === false ? '' : html`<script type="application/ld+json">${jsonForScript(graph(nodes))}</script>`}
 </head>`;

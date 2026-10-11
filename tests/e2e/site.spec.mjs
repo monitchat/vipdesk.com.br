@@ -32,7 +32,10 @@ test.describe('rotas', () => {
   test('rota sem barra final redireciona permanentemente para a canônica', async ({ request }) => {
     const res = await request.get('/crm-whatsapp', { maxRedirects: 0 });
     expect(res.status()).toBe(301);
-    expect(res.headers().location).toBe('/crm-whatsapp/');
+    // O Pages pode responder com Location relativo ou absoluto; o destino resolvido é o que importa.
+    const target = new URL(res.headers().location, res.url());
+    expect(target.pathname).toBe('/crm-whatsapp/');
+    expect(target.host).toBe(new URL(res.url()).host);
   });
 
   test('código-fonte e documentação não são publicados', async ({ request }) => {
@@ -84,6 +87,19 @@ test.describe('renderização e qualidade', () => {
       expect(errors).toEqual([]);
     });
   }
+
+  test('nenhuma requisição a terceiros e fonte da marca carregada', async ({ page, baseURL }) => {
+    const origin = new URL(baseURL).origin;
+    const thirdParty = [];
+    page.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) thirdParty.push(r.url()); });
+    await page.goto('/');
+    const loaded = await page.evaluate(async () => {
+      await document.fonts.ready;
+      return [...document.fonts].some((f) => f.family.replace(/"/g, '') === 'Nunito' && f.status === 'loaded');
+    });
+    expect(loaded).toBe(true);
+    expect(thirdParty).toEqual([]);
+  });
 
   test('conteúdo principal visível sem JavaScript', async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false });
