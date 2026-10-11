@@ -1,0 +1,15 @@
+# Configuração do Jekyll usado pelo GitHub Pages.
+# O site é gerado por `npm run build` (ver README); o Jekyll só copia os arquivos.
+# Itens abaixo são código-fonte, testes e documentação: não devem ser publicados.
+exclude:
+  - src
+  - scripts
+  - tests
+  - docs
+  - node_modules
+  - package.json
+  - package-lock.json
+  - playwright.config.mjs
+  - test-results
+  - playwright-report
+  - README.md
