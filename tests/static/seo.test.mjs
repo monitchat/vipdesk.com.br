@@ -1,9 +1,11 @@
 // Validações de SEO sobre o HTML gerado (o mesmo que o GitHub Pages publica).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { SITE } from '../../src/config.mjs';
 import {
-  pages, indexablePages, read, ORIGIN, titleOf, metaContent, canonicalOf, h1s, textOf,
+  pages, indexablePages, read, ORIGIN, ROOT, titleOf, metaContent, canonicalOf, h1s, textOf,
   jsonLdOf, hrefs, ids, fileForPath,
 } from './helpers.mjs';
 
@@ -115,7 +117,8 @@ test('links externos são apenas destinos conhecidos', () => {
   const allowed = [/^https:\/\/app\.vipdesk\.com\.br\/?$/, /^https:\/\/developers\.google\.com\//, /^https:\/\/myaccount\.google\.com\//];
   for (const p of pages) {
     for (const href of hrefs(p.html).filter((h) => /^https?:/.test(h))) {
-      assert.ok(allowed.some((re) => re.test(href)), `${p.path}: link externo inesperado ${href}`);
+      const configured = [SITE.trialUrl, SITE.demoUrl].filter(Boolean);
+      assert.ok(configured.includes(href) || allowed.some((re) => re.test(href)), `${p.path}: link externo inesperado ${href}`);
     }
   }
 });
@@ -207,9 +210,30 @@ test('CTAs apontam para fluxos existentes', () => {
     for (const [tag] of p.html.matchAll(/<a\b[^>]*data-cta="[^"]+"[^>]*>/g)) {
       const href = tag.match(/href="([^"]+)"/)[1].replace(/&amp;/g, '&');
       const type = tag.match(/data-cta="([^"]+)"/)[1];
-      if (type === 'demo_request' || type === 'contact_click') assert.match(href, /^mailto:comercial@vipphone\.com\.br(\?|$)/);
+      if (type === 'demo_request' && SITE.demoUrl) assert.equal(href, SITE.demoUrl);
+      else if (type === 'demo_request' || type === 'contact_click') assert.match(href, /^mailto:comercial@vipphone\.com\.br(\?|$)/);
+      else if (type === 'trial_start') assert.equal(href, SITE.trialUrl);
       else if (type === 'app_access') assert.equal(href, 'https://app.vipdesk.com.br');
       else assert.fail(`${p.path}: CTA desconhecido ${type}`);
+    }
+  }
+});
+
+test('fonte auto-hospedada: sem Google Fonts, com preload e licença', () => {
+  for (const p of pages) {
+    assert.doesNotMatch(p.html, /fonts\.(googleapis|gstatic)\.com/, `${p.path}: fonte de terceiros`);
+    assert.match(p.html, /<link rel="preload" href="\/assets\/fonts\/nunito-latin\.woff2" as="font" type="font\/woff2" crossorigin>/, p.path);
+  }
+  for (const f of ['nunito-latin.woff2', 'nunito-latin-ext.woff2', 'OFL.txt']) {
+    assert.ok(existsSync(join(ROOT, 'assets', 'fonts', f)), `assets/fonts/${f}`);
+  }
+});
+
+test('nenhum recurso externo bloqueia a renderização', () => {
+  for (const p of pages) {
+    const head = p.html.split('</head>')[0];
+    for (const [tag] of head.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*>|<script\b[^>]*\bsrc="[^"]+"[^>]*>/g)) {
+      assert.fail(`${p.path}: recurso bloqueante no <head>: ${tag}`);
     }
   }
 });

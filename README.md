@@ -20,6 +20,7 @@ scripts/
   build.mjs         gera *.html, sitemap.xml e robots.txt   (--check só compara)
   serve.mjs         servidor local que imita o GitHub Pages (404 real, 301 de /pasta)
   measure.mjs       medição de laboratório (LCP, CLS, bytes)
+  audit.mjs         auditoria de SEO reexecutável (SEO_BASE_URL=https://vipdesk.com.br)
   make-images.py    gera favicons, ícone 2x e imagem Open Graph a partir da marca
 tests/static/       testes de SEO sobre o HTML gerado (node --test)
 tests/e2e/          testes de navegador e acessibilidade (Playwright + axe-core)
@@ -35,7 +36,15 @@ npm install       # só para os testes
 npm run build     # regenera o HTML na raiz
 npm test          # sincronia + testes estáticos + Playwright
 npm run serve     # http://localhost:4173
+npm run audit     # auditoria de SEO do build local (sitemap, canonical, links, 404...)
+
+# depois de publicar, de uma máquina com acesso à internet (somente leitura):
+npm run audit:prod   # mesma auditoria contra https://vipdesk.com.br -> seo-audit-producao.md
+npm run test:prod    # testes Playwright contra produção
 ```
+
+Para ligar CTAs diretos, preencha em `src/config.mjs`: `trialUrl` (cadastro do teste
+gratuito) e/ou `demoUrl` (agenda de demonstração) e rode o build.
 
 Commite a fonte e os arquivos gerados juntos. Não edite os `index.html` gerados à mão:
 `npm run check:sync` acusa qualquer diferença entre eles e `src/`.
@@ -45,7 +54,8 @@ Novo artigo: crie `src/pages/blog/artigos/<slug>.mjs`, registre em
 são atualizados sozinhos). Nova página comercial: crie em `src/pages/solucoes/`,
 registre em `src/navigation.mjs` e `src/routes.mjs`.
 
-Documentação de SEO: [`docs/SEO-AUDIT.md`](docs/SEO-AUDIT.md),
+Documentação de SEO: [`docs/SEO-PRODUCTION-VALIDATION.md`](docs/SEO-PRODUCTION-VALIDATION.md),
+[`docs/SEO-AUDIT.md`](docs/SEO-AUDIT.md),
 [`docs/SEO-STRATEGY.md`](docs/SEO-STRATEGY.md), [`docs/SEO-VALIDATION.md`](docs/SEO-VALIDATION.md).
 
 ## Publicar

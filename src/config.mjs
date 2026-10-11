@@ -18,6 +18,10 @@ export const SITE = {
   // por prazo determinado, mas a rota de cadastro não pôde ser verificada a partir deste
   // repositório. Enquanto for null, o CTA "Experimentar grátis" não é exibido.
   trialUrl: null,
+  // Link direto para agendar demonstração (ex.: portal público de auto-agendamento do próprio
+  // VipDesk com a agenda do time comercial). Nenhum link desses existe neste repositório; enquanto
+  // for null, "Agendar demonstração" abre um e-mail pré-preenchido para o comercial.
+  demoUrl: null,
   emails: {
     sales: 'comercial@vipphone.com.br',
     support: 'suporte@vipphone.com.br',
@@ -42,7 +46,7 @@ const mailto = (to, subject, body) =>
 
 // Pedido de demonstração: o fluxo comercial existente é o e-mail do time comercial.
 // O corpo já sugere as informações que ajudam a qualificar a conversa.
-export const DEMO_HREF = mailto(
+export const DEMO_HREF = SITE.demoUrl || mailto(
   SITE.emails.sales,
   'Quero agendar uma demonstração do VipDesk',
   'Olá! Gostaria de agendar uma demonstração do VipDesk.\n\n' +

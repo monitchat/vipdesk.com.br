@@ -117,6 +117,11 @@ Observações:
 
 ## 5. Performance (laboratório)
 
+> **Atualização (11/10/2026, após o deploy):** o Lighthouse mobile mostrou LCP de 2,6–3,0 s,
+> causado pelo CSS do Google Fonts que bloqueava a renderização. A medição abaixo, feita com um
+> perfil de rede próprio, não detectou isso. A fonte agora é auto-hospedada (LCP de 1,3 s no
+> Lighthouse). Ver `docs/SEO-PRODUCTION-VALIDATION.md` §E, que passa a ser a referência.
+
 Método: `scripts/measure.mjs`, Chromium emulando Pixel 7, rede 1,6 Mbps / 150 ms de
 latência, CPU 4× mais lenta, cache desabilitado, mediana de 3 execuções, servidor local.
 Não são dados de campo (CrUX/INP indisponíveis para um site novo).

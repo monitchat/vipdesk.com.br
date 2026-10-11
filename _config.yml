@@ -13,3 +13,4 @@ exclude:
   - test-results
   - playwright-report
   - README.md
+  - seo-audit-producao.md
