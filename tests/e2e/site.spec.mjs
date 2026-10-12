@@ -128,6 +128,41 @@ test.describe('navegação e CTAs', () => {
     await expect(page.locator('h1')).toContainText('CRM para WhatsApp');
   });
 
+  test('menu em inglês leva às páginas comerciais em inglês', async ({ page, isMobile }) => {
+    await page.goto('/en/');
+    const menu = page.locator(isMobile ? 'details.menu-movel' : 'nav.nav-links details.menu');
+    await menu.locator('summary').click();
+    const hrefs = await menu.locator('.submenu a[href^="/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
+    for (const p of ['/en/whatsapp-customer-service/', '/en/whatsapp-crm/', '/en/omnichannel-customer-service/',
+      '/en/customer-service-automation/', '/en/whatsapp-appointment-scheduling/', '/en/ai-customer-service/']) {
+      expect(hrefs).toContain(p);
+    }
+    await menu.locator('.submenu a[href="/en/whatsapp-crm/"]').click();
+    await expect(page).toHaveURL(/\/en\/whatsapp-crm\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  });
+
+  test('seletor de idioma alterna entre páginas equivalentes', async ({ page, isMobile }) => {
+    await page.goto('/crm-whatsapp/');
+    if (isMobile) await page.locator('details.menu-movel summary').click();
+    const toEn = isMobile ? page.locator('details.menu-movel a[hreflang="en"]') : page.locator('a.idioma[hreflang="en"]');
+    await toEn.click();
+    await expect(page).toHaveURL(/\/en\/whatsapp-crm\/$/);
+    await expect(page.locator('h1')).toContainText('WhatsApp CRM');
+    if (isMobile) await page.locator('details.menu-movel summary').click();
+    const toPt = isMobile ? page.locator('details.menu-movel a[hreflang="pt-BR"]') : page.locator('a.idioma[hreflang="pt-BR"]');
+    await toPt.click();
+    await expect(page).toHaveURL(/\/crm-whatsapp\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
+  });
+
+  test('CTA de demonstração em inglês usa assunto em inglês', async ({ page }) => {
+    await page.goto('/en/whatsapp-crm/');
+    const cta = page.locator('.hero [data-cta="demo_request"]');
+    await expect(cta).toHaveText('Book a demo');
+    expect(decodeURIComponent(await cta.getAttribute('href'))).toContain('VipDesk demo request');
+  });
+
   test('menu fecha com Esc', async ({ page, isMobile }) => {
     await page.goto('/');
     const menu = page.locator(isMobile ? 'details.menu-movel' : 'nav.nav-links details.menu');

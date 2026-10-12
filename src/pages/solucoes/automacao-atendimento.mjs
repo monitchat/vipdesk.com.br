@@ -1,9 +1,12 @@
 // Intenção: "automação de atendimento ao cliente" (inclui chamados, SLA e escalonamento).
 import { landingPage } from '../../lib/landing.mjs';
 import { html } from '../../lib/html.mjs';
-import { list, steps, cards } from '../../lib/components.mjs';
+import { list, steps, cards as cardsIn } from '../../lib/components.mjs';
+
+const cards = (items) => cardsIn(items, 'pt');
 
 export default landingPage({
+  lang: 'pt',
   path: '/automacao-atendimento/',
   title: 'Automação de Atendimento ao Cliente e SLA | VipDesk',
   description:

@@ -3,9 +3,13 @@
 // calendar.freebusy), links para Privacidade/Termos e identificação da empresa. Ver README.
 import { SITE } from '../config.mjs';
 import { html } from '../lib/html.mjs';
-import { hero, section, cards, faq, ctaBand, list } from '../lib/components.mjs';
+import { hero, section, cards as cardsIn, faq, ctaBand, list } from '../lib/components.mjs';
+
+const cards = (items) => cardsIn(items, 'pt');
 import { faqPage, softwareApplication } from '../lib/schema.mjs';
-import { POSTS } from './blog/posts.mjs';
+import { POSTS as ALL_POSTS } from './blog/posts.mjs';
+
+const POSTS = ALL_POSTS.pt;
 
 const FAQS = [
   {
@@ -233,6 +237,8 @@ const PRIVACIDADE = html`
 </section>`;
 
 const page = {
+  lang: 'pt',
+  key: 'home',
   path: '/',
   title: 'VipDesk | Plataforma de Atendimento Omnichannel, CRM e IA',
   description:
@@ -241,11 +247,12 @@ const page = {
   h1: 'Plataforma de atendimento omnichannel com WhatsApp, CRM e inteligência artificial',
 };
 
-page.jsonLd = [softwareApplication(), faqPage(page, FAQS)];
+page.jsonLd = [softwareApplication('pt'), faqPage(page, FAQS)];
 page.about = { '@id': `${SITE.origin}/#software` };
 
 page.body = html`
 ${hero({
+  lang: 'pt',
   eyebrow: `Uma solução ${SITE.company.name}`,
   h1: page.h1,
   lead: `Centralize as conversas de WhatsApp, Instagram, Facebook, Telegram, e-mail e telefonia,
@@ -287,6 +294,7 @@ ${section({
     <p style="margin-top:24px"><a href="/blog/">Ver todos os artigos do blog</a></p>`,
 })}
 ${ctaBand({
+  lang: 'pt',
   title: 'Quer conhecer o VipDesk?',
   text: 'Fale com nosso time comercial e agende uma demonstração da plataforma com os canais e o funil da sua operação.',
 })}`;

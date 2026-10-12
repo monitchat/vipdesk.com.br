@@ -1,8 +1,11 @@
 // Intenção: "CRM para WhatsApp" / gestão de leads e oportunidades a partir de conversas.
 import { landingPage } from '../../lib/landing.mjs';
-import { list, steps, panels, cards } from '../../lib/components.mjs';
+import { list, steps, panels, cards as cardsIn } from '../../lib/components.mjs';
+
+const cards = (items) => cardsIn(items, 'pt');
 
 export default landingPage({
+  lang: 'pt',
   path: '/crm-whatsapp/',
   title: 'CRM para WhatsApp: Funil, Leads e Propostas | VipDesk',
   description:

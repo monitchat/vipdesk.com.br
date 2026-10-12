@@ -1,9 +1,12 @@
 // Intenção: "plataforma de atendimento omnichannel" (comercial) com definição de apoio.
 import { landingPage } from '../../lib/landing.mjs';
 import { html } from '../../lib/html.mjs';
-import { list, panels, cards } from '../../lib/components.mjs';
+import { list, panels, cards as cardsIn } from '../../lib/components.mjs';
+
+const cards = (items) => cardsIn(items, 'pt');
 
 export default landingPage({
+  lang: 'pt',
   path: '/atendimento-omnichannel/',
   title: 'Plataforma de Atendimento Omnichannel | VipDesk',
   description:

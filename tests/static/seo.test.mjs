@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { SITE } from '../../src/config.mjs';
+import { ui, LOCALES, DEFAULT_FOR_UNMATCHED } from '../../src/i18n.mjs';
 import {
   pages, indexablePages, read, ORIGIN, ROOT, titleOf, metaContent, canonicalOf, h1s, textOf,
   jsonLdOf, hrefs, ids, fileForPath,
@@ -17,7 +18,7 @@ test('cada página tem title, description, H1 único, idioma e viewport', () => 
     assert.ok(title.length <= 65, `${p.path}: title com ${title.length} caracteres`);
     assert.ok(desc && desc.length >= 70 && desc.length <= 160, `${p.path}: description com ${desc?.length} caracteres`);
     assert.equal(h1s(p.html).length, 1, `${p.path}: deve ter exatamente um H1`);
-    assert.match(p.html, /<html lang="pt-BR">/, `${p.path}: idioma`);
+    assert.ok(p.html.includes(`<html lang="${ui(p.lang).htmlLang}">`), `${p.path}: idioma`);
     assert.match(p.html, /<meta name="viewport" content="width=device-width, initial-scale=1">/);
     assert.doesNotMatch(p.html, /name="keywords"/, `${p.path}: meta keywords não deve ser usada`);
   }
@@ -153,12 +154,12 @@ test('JSON-LD válido, com Organization/WebSite/WebPage e breadcrumbs coerentes'
     assert.doesNotMatch(text, /aggregateRating|"review"|"offers"|ratingValue/, `${p.path}: dado não verificável`);
 
     const crumbs = ld['@graph'].find((n) => n['@type'] === 'BreadcrumbList');
-    if (p.path === '/') {
+    if (p.key === 'home') {
       assert.equal(crumbs, undefined);
       assert.ok(types.includes('SoftwareApplication'));
     } else {
       assert.ok(crumbs, `${p.path}: falta BreadcrumbList`);
-      const visible = [...p.html.matchAll(/<nav class="trilha[^"]*" aria-label="Você está em">([\s\S]*?)<\/nav>/g)];
+      const visible = [...p.html.matchAll(/<nav class="trilha[^"]*" aria-label="[^"]+">([\s\S]*?)<\/nav>/g)];
       assert.equal(visible.length, 1, `${p.path}: breadcrumb visível`);
       const names = [...visible[0][1].matchAll(/<li>([\s\S]*?)<\/li>/g)].map((m) => textOf(m[1]));
       assert.deepEqual(crumbs.itemListElement.map((i) => i.name), names, `${p.path}: breadcrumb visual ≠ JSON-LD`);
@@ -180,7 +181,7 @@ test('FAQPage só com perguntas e respostas visíveis na página', () => {
 });
 
 test('artigos têm data real, autor e BlogPosting', () => {
-  for (const p of indexablePages.filter((x) => x.path.startsWith('/blog/') && x.path !== '/blog/')) {
+  for (const p of indexablePages.filter((x) => x.ogType === 'article')) {
     const post = jsonLdOf(p.html)[0]['@graph'].find((n) => n['@type'] === 'BlogPosting');
     assert.ok(post, p.path);
     assert.match(post.datePublished, /^\d{4}-\d{2}-\d{2}$/);
@@ -236,4 +237,56 @@ test('nenhum recurso externo bloqueia a renderização', () => {
       assert.fail(`${p.path}: recurso bloqueante no <head>: ${tag}`);
     }
   }
+});
+
+test('hreflang recíproco, autorreferente e com x-default em todas as páginas indexáveis', () => {
+  const byUrl = new Map(indexablePages.map((p) => [`${ORIGIN}${p.path}`, p]));
+  const hreflangs = (html) => [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">/g)]
+    .map((m) => ({ lang: m[1], href: m[2] }));
+  for (const p of indexablePages) {
+    const links = hreflangs(p.html);
+    const self = `${ORIGIN}${p.path}`;
+    // uma versão por idioma do site, ela mesma incluída
+    for (const l of LOCALES) assert.equal(links.filter((x) => x.lang === ui(l).hreflang).length, 1, `${p.path}: hreflang ${l}`);
+    assert.ok(links.some((x) => x.lang === ui(p.lang).hreflang && x.href === self), `${p.path}: sem hreflang autorreferente`);
+    const xDefault = links.find((x) => x.lang === 'x-default');
+    assert.ok(xDefault, `${p.path}: sem x-default`);
+    assert.equal(xDefault.href, links.find((x) => x.lang === ui(DEFAULT_FOR_UNMATCHED).hreflang).href);
+    for (const { lang, href } of links.filter((x) => x.lang !== 'x-default')) {
+      const target = byUrl.get(href);
+      assert.ok(target, `${p.path}: hreflang ${lang} aponta para URL inexistente ${href}`);
+      assert.equal(ui(target.lang).hreflang, lang, `${p.path}: idioma do alvo ${href}`);
+      // reciprocidade: o alvo aponta de volta para esta página
+      assert.ok(hreflangs(target.html).some((x) => x.href === self), `${href} não aponta de volta para ${self}`);
+    }
+  }
+});
+
+test('seletor de idioma leva à página equivalente', () => {
+  for (const p of indexablePages) {
+    for (const l of LOCALES.filter((x) => x !== p.lang)) {
+      const alt = p.alternates.find((a) => a.lang === l);
+      const tag = p.html.match(new RegExp(`<a class="idioma" href="([^"]+)" hreflang="${ui(l).hreflang}"`));
+      assert.ok(tag, `${p.path}: sem seletor para ${l}`);
+      assert.equal(tag[1], alt.path, `${p.path}: seletor para ${l}`);
+    }
+  }
+});
+
+test('páginas em inglês não exibem textos de interface em português', () => {
+  const PT_UI = ['Agendar demonstração', 'Falar com especialista', 'Acessar a plataforma', 'Saiba mais',
+    'Perguntas frequentes', 'Pular para o conteúdo', 'Você está em', 'Política de Privacidade', 'Termos de Uso',
+    'Leia também', 'Recursos relacionados', 'Ler artigo', 'Todos os direitos reservados', 'Publicado em'];
+  for (const p of indexablePages.filter((x) => x.lang === 'en')) {
+    const html = p.html.replace(/<p class="aviso-traducao"[\s\S]*?<\/p>/, '');
+    const visible = textOf(html);
+    for (const s of PT_UI) assert.ok(!visible.includes(s), `${p.path}: texto em português "${s}"`);
+    assert.doesNotMatch(html, /href="\/(?!en\/|assets\/|favicon)[^"]*"(?! hreflang)/, `${p.path}: link interno para página em português fora do seletor`);
+  }
+});
+
+test('versões traduzidas são completas (mesmas páginas nos dois idiomas)', () => {
+  const keys = (lang) => indexablePages.filter((p) => p.lang === lang).map((p) => p.key).sort();
+  assert.deepEqual(keys('en'), keys('pt'));
+  for (const p of indexablePages) assert.ok(p.key, `${p.path}: sem chave de tradução`);
 });

@@ -4,9 +4,12 @@
 // conduza conversas sozinho. Ver docs/SEO-AUDIT.md (pendências).
 import { landingPage } from '../../lib/landing.mjs';
 import { html } from '../../lib/html.mjs';
-import { steps, panels, cards } from '../../lib/components.mjs';
+import { steps, panels, cards as cardsIn } from '../../lib/components.mjs';
+
+const cards = (items) => cardsIn(items, 'pt');
 
 export default landingPage({
+  lang: 'pt',
   path: '/inteligencia-artificial-atendimento/',
   title: 'Inteligência Artificial no Atendimento | VipDesk',
   description:

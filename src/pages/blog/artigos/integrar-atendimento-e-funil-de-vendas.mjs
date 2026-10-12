@@ -1,5 +1,6 @@
 // Apoia: /crm-whatsapp/ (intenção informacional sobre atendimento + vendas).
 export default {
+  key: 'post-support-sales',
   slug: 'integrar-atendimento-e-funil-de-vendas',
   title: 'Como Integrar o Atendimento ao Funil de Vendas',
   description:
