@@ -3,9 +3,12 @@
 // (ver docs/SEO-STRATEGY.md, mapa de palavras-chave).
 import { landingPage } from '../../lib/landing.mjs';
 import { html } from '../../lib/html.mjs';
-import { list, steps, panels, cards } from '../../lib/components.mjs';
+import { list, steps, panels, cards as cardsIn } from '../../lib/components.mjs';
+
+const cards = (items) => cardsIn(items, 'pt');
 
 export default landingPage({
+  lang: 'pt',
   path: '/sistema-atendimento-whatsapp/',
   title: 'Sistema de Atendimento WhatsApp para Equipes | VipDesk',
   description:

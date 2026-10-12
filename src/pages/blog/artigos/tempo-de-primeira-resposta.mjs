@@ -1,5 +1,6 @@
 // Apoia: /automacao-atendimento/ e /atendimento-omnichannel/ (intenção informacional).
 export default {
+  key: 'post-first-response',
   slug: 'tempo-de-primeira-resposta',
   title: 'Como Reduzir o Tempo de Primeira Resposta no Atendimento',
   description:

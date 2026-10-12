@@ -10,6 +10,7 @@
 // Sai com código 1 se houver problema P0 ou P1.
 import { writeFile } from 'node:fs/promises';
 import { PAGES } from '../src/routes.mjs';
+import { ui, LOCALES } from '../src/i18n.mjs';
 import { startServer } from './serve.mjs';
 
 const OFFICIAL = 'https://vipdesk.com.br';
@@ -166,6 +167,7 @@ while (queue.length) {
 // ---------- verificações por página ----------
 const sitemapPaths = new Set(sitemapLocs.map((u) => new URL(u).pathname));
 const titles = new Map();
+const hreflangMap = new Map();
 const descriptions = new Map();
 const rows = [];
 
@@ -210,7 +212,17 @@ for (const { path, res, info } of pages.values()) {
   for (let i = 1; i < info.headings.length; i++) {
     if (info.headings[i] > info.headings[i - 1] + 1) { add('P3', 'Salto de nível de heading', `h${info.headings[i - 1]} → h${info.headings[i]}`); break; }
   }
-  if (info.lang !== 'pt-BR') add('P2', 'Idioma ausente ou incorreto', info.lang || '-');
+  const expectedLang = PAGES.find((x) => x.path === path)?.lang;
+  if (!info.lang || (expectedLang && info.lang !== ui(expectedLang).htmlLang)) add('P2', 'Idioma ausente ou incorreto', `${info.lang || '-'} (esperado ${expectedLang ? ui(expectedLang).htmlLang : 'pt-BR ou en'})`);
+  if (!noindex && LOCALES.length > 1) {
+    const alts = [...res.body.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">/g)].map((m) => ({ lang: m[1], href: m[2] }));
+    if (!alts.length) add('P2', 'Sem hreflang', 'página sem versões alternativas declaradas');
+    else {
+      if (!alts.some((a) => a.href === `${OFFICIAL}${path}`)) add('P2', 'hreflang sem autorreferência', path);
+      if (!alts.some((a) => a.lang === 'x-default')) add('P3', 'hreflang sem x-default', path);
+      hreflangMap.set(path, alts);
+    }
+  }
   if (!info.viewport) add('P1', 'Viewport ausente', '');
   if (!noindex) {
     const expected = `${OFFICIAL}${path}`;
@@ -230,6 +242,17 @@ for (const { path, res, info } of pages.values()) {
   if (placeholder) add('P1', 'Possível placeholder no conteúdo', placeholder[0]);
   if (/Encarregado \(DPO\):\s*\./.test(text)) add('P2', 'Nome do Encarregado (DPO) vazio', 'Encarregado (DPO): .');
   rows.push(row);
+}
+
+// hreflang recíproco: se A declara B como alternativa, B precisa declarar A.
+for (const [path, alts] of hreflangMap) {
+  for (const a of alts.filter((x) => x.lang !== 'x-default')) {
+    const target = new URL(a.href).pathname;
+    if (target === path) continue;
+    const back = hreflangMap.get(target);
+    if (!back) issue(path, 'P2', 'hreflang aponta para página não rastreada ou sem hreflang', a.href);
+    else if (!back.some((b) => b.href === `${OFFICIAL}${path}`)) issue(path, 'P2', 'hreflang não recíproco', `${target} não aponta de volta`);
+  }
 }
 
 for (const [t, ps] of titles) if (ps.length > 1) issue(ps.join(', '), 'P1', 'Title duplicado', t);

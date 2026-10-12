@@ -1,5 +1,6 @@
 // Apoia: /sistema-atendimento-whatsapp/ (intenção informacional "como organizar").
 export default {
+  key: 'post-whatsapp-team',
   slug: 'whatsapp-varios-atendentes',
   title: 'Como Organizar o Atendimento no WhatsApp com Vários Atendentes',
   description:

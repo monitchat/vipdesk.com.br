@@ -10,12 +10,14 @@ runtime e fica versionado na raiz do repositório (o GitHub Pages continua publi
 
 ```
 src/
-  config.mjs        dados institucionais, URLs, CTAs (inclui trialUrl, ainda pendente)
-  navigation.mjs    lista das páginas comerciais (menu, rodapé, cards)
-  routes.mjs        todas as páginas do site (base do build e do sitemap)
+  config.mjs        dados institucionais, URLs, CTAs (inclui trialUrl e demoUrl, pendentes)
+  i18n.mjs          idiomas (pt na raiz, en em /en/) e textos de interface traduzidos
+  navigation.mjs    páginas comerciais por idioma (menu, rodapé, cards)
+  routes.mjs        todas as páginas, nos dois idiomas; calcula os hreflang
   styles.css        estilos (inline em cada página no build)
   lib/              layout, componentes, template de landing page, blog, JSON-LD
-  pages/            conteúdo: home, solucoes/, blog/, legal/ (texto jurídico em *.body.html)
+  pages/            conteúdo: home, solucoes/, blog/ (artigos/ e en/), en/ (home e solutions/),
+                    legal/ (texto jurídico em *.body.html; tradução em *.en.body.html)
 scripts/
   build.mjs         gera *.html, sitemap.xml e robots.txt   (--check só compara)
   serve.mjs         servidor local que imita o GitHub Pages (404 real, 301 de /pasta)
@@ -53,6 +55,10 @@ Novo artigo: crie `src/pages/blog/artigos/<slug>.mjs`, registre em
 `src/pages/blog/posts.mjs` e rode o build (sitemap, índice do blog e links relacionados
 são atualizados sozinhos). Nova página comercial: crie em `src/pages/solucoes/`,
 registre em `src/navigation.mjs` e `src/routes.mjs`.
+
+Versão em inglês: toda página indexável tem uma `key` igual à da sua tradução; os testes falham
+se faltar a página equivalente em algum idioma. Detalhes e riscos para o mercado dos EUA em
+[`docs/INTERNATIONAL-SEO.md`](docs/INTERNATIONAL-SEO.md).
 
 Documentação de SEO: [`docs/SEO-PRODUCTION-VALIDATION.md`](docs/SEO-PRODUCTION-VALIDATION.md),
 [`docs/SEO-AUDIT.md`](docs/SEO-AUDIT.md),

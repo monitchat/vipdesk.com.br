@@ -37,32 +37,41 @@ square(32, 0.02, (0, 0, 0, 0)).save(A / "favicon-32.png", optimize=True)
 square(180, 0.12, (255, 255, 255, 255)).convert("RGB").save(A / "apple-touch-icon.png", optimize=True)
 square(48, 0.02, (0, 0, 0, 0)).save(ROOT / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
 
-# Imagem de compartilhamento social (Open Graph) 1200x630.
+# Imagens de compartilhamento social (Open Graph) 1200x630, uma por idioma.
 W, H = 1200, 630
-og = Image.new("RGB", (W, H))
 stops = [(0.0, (0x4A, 0x24, 0x59)), (0.45, (0x5C, 0x2D, 0x6F)), (1.0, (0x7E, 0x3E, 0x97))]
-px = og.load()
-for x in range(W):
-    for y in range(H):
-        t = (x / W) * 0.75 + (y / H) * 0.25
-        for (t0, c0), (t1, c1) in zip(stops, stops[1:]):
-            if t0 <= t <= t1:
-                k = (t - t0) / (t1 - t0)
-                px[x, y] = tuple(round(a + (b - a) * k) for a, b in zip(c0, c1))
-                break
-og = og.convert("RGBA")
-d = ImageDraw.Draw(og)
-# Base branca atrás do símbolo, que é roxo e sumiria sobre o fundo roxo.
-d.rounded_rectangle((90, 100, 302, 262), radius=28, fill="white")
-og.alpha_composite(fit(icon, 118), (108, 122))
-wordmark = fit(logo, 150)
-wordmark = wordmark.crop((round(wordmark.width * 0.255), 0, wordmark.width, wordmark.height))
-og.alpha_composite(wordmark, (318, 106))
 bold = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 50)
 reg = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 30)
-d.text((96, 340), "Atendimento omnichannel,", font=bold, fill="white")
-d.text((96, 402), "CRM e IA em uma só plataforma", font=bold, fill="white")
-d.text((96, 500), "vipdesk.com.br  ·  Uma solução Vipphone Software", font=reg, fill=(255, 255, 255, 215))
-d.rectangle((96, 470, 186, 476), fill=(0, 0xA9, 0xB7))
-og.convert("RGB").save(A / "og-vipdesk.png", optimize=True)
-print("og", og.size)
+
+
+def og_image(lines, footer, out):
+    og = Image.new("RGB", (W, H))
+    px = og.load()
+    for x in range(W):
+        for y in range(H):
+            t = (x / W) * 0.75 + (y / H) * 0.25
+            for (t0, c0), (t1, c1) in zip(stops, stops[1:]):
+                if t0 <= t <= t1:
+                    k = (t - t0) / (t1 - t0)
+                    px[x, y] = tuple(round(a + (b - a) * k) for a, b in zip(c0, c1))
+                    break
+    og = og.convert("RGBA")
+    d = ImageDraw.Draw(og)
+    # Base branca atrás do símbolo, que é roxo e sumiria sobre o fundo roxo.
+    d.rounded_rectangle((90, 100, 302, 262), radius=28, fill="white")
+    og.alpha_composite(fit(icon, 118), (108, 122))
+    wordmark = fit(logo, 150)
+    wordmark = wordmark.crop((round(wordmark.width * 0.255), 0, wordmark.width, wordmark.height))
+    og.alpha_composite(wordmark, (318, 106))
+    d.text((96, 340), lines[0], font=bold, fill="white")
+    d.text((96, 402), lines[1], font=bold, fill="white")
+    d.text((96, 500), footer, font=reg, fill=(255, 255, 255, 215))
+    d.rectangle((96, 470, 186, 476), fill=(0, 0xA9, 0xB7))
+    og.convert("RGB").save(A / out, optimize=True)
+    print("og", out, og.size)
+
+
+og_image(("Atendimento omnichannel,", "CRM e IA em uma só plataforma"),
+         "vipdesk.com.br  ·  Uma solução Vipphone Software", "og-vipdesk.png")
+og_image(("Omnichannel customer service,", "CRM and AI in one platform"),
+         "vipdesk.com.br/en  ·  A Vipphone Software product", "og-vipdesk-en.png")

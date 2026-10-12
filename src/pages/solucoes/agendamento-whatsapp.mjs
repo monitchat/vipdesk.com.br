@@ -1,9 +1,12 @@
 // Intenção: "agendamento pelo WhatsApp". Detalhes de integração idênticos aos da
 // Política de Privacidade (escopos calendar.freebusy e calendar.events).
 import { landingPage } from '../../lib/landing.mjs';
-import { list, steps, panels, cards } from '../../lib/components.mjs';
+import { list, steps, panels, cards as cardsIn } from '../../lib/components.mjs';
+
+const cards = (items) => cardsIn(items, 'pt');
 
 export default landingPage({
+  lang: 'pt',
   path: '/agendamento-whatsapp/',
   title: 'Agendamento pelo WhatsApp com Lembretes | VipDesk',
   description:

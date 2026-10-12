@@ -67,6 +67,10 @@ header.topo {
 .nav-links > a, .nav-links summary { color: var(--texto); text-decoration: none; font-weight: 600; font-size: 15px; }
 .nav-links > a:hover, .nav-links summary:hover { color: var(--roxo-claro); }
 .nav-links > a[aria-current="page"] { color: var(--roxo-claro); }
+.nav-links > a.idioma {
+  border: 1.5px solid var(--borda); border-radius: 8px; padding: 5px 10px; font-size: 14px;
+}
+.nav-links > a.idioma:hover { border-color: var(--roxo-claro); }
 
 /* menus com <details>: funcionam sem JavaScript */
 details.menu { position: relative; }
@@ -250,6 +254,10 @@ ol.passos h3 { margin-bottom: 4px; }
 .legal ol, .legal ul { margin: 0 0 16px; padding-left: 22px; }
 .legal li { margin-bottom: 7px; }
 .legal strong { color: var(--tinta); }
+.legal .aviso-traducao {
+  background: var(--suave); border: 1px solid var(--borda); border-left: 4px solid var(--teal);
+  border-radius: 10px; padding: 14px 18px; font-size: 15px;
+}
 .legal code { background: var(--suave); padding: 1px 5px; border-radius: 4px; font-size: .9em; }
 .trilha-legal { padding-top: 26px; }
 
