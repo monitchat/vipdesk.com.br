@@ -14,6 +14,8 @@ export const SITE = {
     height: 630,
   },
   appUrl: 'https://app.vipdesk.com.br',
+  // Google Analytics 4 (gtag.js). null desativa a tag em todas as páginas.
+  ga4Id: 'G-5L7TXDVM7T',
   // URL pública de cadastro do teste gratuito. Os Termos de Uso preveem teste gratuito
   // por prazo determinado, mas a rota de cadastro não pôde ser verificada a partir deste
   // repositório. Enquanto for null, o CTA "Experimentar grátis" não é exibido.
