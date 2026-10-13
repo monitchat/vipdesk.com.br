@@ -102,7 +102,7 @@ Observação: a medição da etapa anterior (`docs/SEO-VALIDATION.md`, LCP de ~0
 | `trial_start` | Experimentar grátis | — (oculto) | 0 | Aparece em todo o site ao preencher `SITE.trialUrl` |
 | — | Conhecer recursos / Saiba mais | Links internos das páginas comerciais | — | Aprovado (links internos testados) |
 
-Nenhum formulário de produção foi enviado e nenhum registro comercial foi criado durante os testes. O clique registra `cta_click` em `window.dataLayer` (testado), sem envio a terceiros.
+Nenhum formulário de produção foi enviado e nenhum registro comercial foi criado durante os testes. O clique registra `cta_click` (desde 13/10/2026 enviado ao Google Analytics 4 via gtag; ver `ANALYTICS.md`).
 
 **Requisitos para remover o atrito do `mailto`** (escolher um):
 1. URL pública de agendamento do time comercial — idealmente o portal de auto-agendamento do próprio VipDesk, o que também demonstra o produto → `SITE.demoUrl`.

@@ -16,9 +16,23 @@ const minifyCss = (css) =>
 
 const CSS = minifyCss(readFileSync(new URL('../styles.css', import.meta.url), 'utf8'));
 
-// Fecha menus abertos ao clicar fora/Esc e registra cliques de CTA em window.dataLayer
-// (só é lido se um gerenciador de tags for instalado; nada é enviado a terceiros).
-const SCRIPT = `(function(){var m=function(){return document.querySelectorAll('details.menu[open]')};document.addEventListener('click',function(e){m().forEach(function(d){if(!d.contains(e.target))d.removeAttribute('open')});var a=e.target.closest&&e.target.closest('[data-cta]');if(a){(window.dataLayer=window.dataLayer||[]).push({event:'cta_click',cta_type:a.getAttribute('data-cta'),cta_location:a.getAttribute('data-cta-local')||'',page_path:location.pathname})}});document.addEventListener('keydown',function(e){if(e.key==='Escape')m().forEach(function(d){d.removeAttribute('open');var s=d.querySelector('summary');if(s)s.focus()})})})();`;
+// Fecha menus abertos ao clicar fora/Esc e envia cliques de CTA ao Google Analytics como o evento
+// `cta_click` (parâmetros cta_type e cta_location). É um clique (intenção), não um lead confirmado.
+const SCRIPT = `(function(){var m=function(){return document.querySelectorAll('details.menu[open]')};document.addEventListener('click',function(e){m().forEach(function(d){if(!d.contains(e.target))d.removeAttribute('open')});var a=e.target.closest&&e.target.closest('[data-cta]');if(a&&typeof window.gtag==='function'){window.gtag('event','cta_click',{cta_type:a.getAttribute('data-cta'),cta_location:a.getAttribute('data-cta-local')||'',link_url:a.href})}});document.addEventListener('keydown',function(e){if(e.key==='Escape')m().forEach(function(d){d.removeAttribute('open');var s=d.querySelector('summary');if(s)s.focus()})})})();`;
+
+// Tag do Google Analytics 4, exatamente como fornecida pelo Google (gtag.js), carregada de forma
+// assíncrona: não bloqueia a renderização.
+const analytics = () => (SITE.ga4Id
+  ? html`<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${SITE.ga4Id}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${SITE.ga4Id}');
+</script>`
+  : '');
 
 const logo = html`<picture><source type="image/webp" srcset="/assets/vipdesk-icon-68.webp"><img src="/assets/vipdesk-icon-68.png" width="52" height="34" alt=""></picture>`;
 
@@ -129,6 +143,7 @@ const head = (page) => {
   return html`<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+${analytics()}
 <title>${esc(page.title)}</title>
 <meta name="description" content="${esc(page.description)}">
 ${page.indexable === false

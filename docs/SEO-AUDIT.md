@@ -70,7 +70,7 @@ relevância, CTR ou experiência; **Baixa** = melhoria.
 | P7 | Capturas de tela do produto | Não há imagens reais da plataforma no repositório; não foram criados mockups falsos. | Fornecer screenshots (sem dados de clientes) para hero e páginas comerciais. |
 | P8 | Nome do Encarregado (DPO) | Política de Privacidade, item 12: “Encarregado (DPO): .” com nome vazio. Texto jurídico não foi alterado. | Jurídico preencher o nome. |
 | P9 | Erro de digitação jurídico | Política, item 1: “operadora de a Plataforma”. Não alterado (texto jurídico). | Jurídico revisar. |
-| P10 | Medição (GA4/GTM) | Não existe ferramenta instalada; instalar exige ID da conta e banner de consentimento (LGPD). | Ver `SEO-STRATEGY.md` → Mensuração. Os cliques de CTA já são registrados em `window.dataLayer`. |
+| P10 | Medição (GA4/GTM) | **Atualização 13/10/2026:** GA4 instalado (ver `ANALYTICS.md`). Pendente: banner de consentimento (LGPD) e citar o Google Analytics na Política de Privacidade. | Ver `SEO-STRATEGY.md` → Mensuração. Os cliques de CTA já são registrados em `window.dataLayer`. |
 | P11 | Perfis sociais oficiais | Nenhum perfil citado no site. Não foram inventados `sameAs`. | Informar URLs oficiais para incluir no JSON-LD `Organization`. |
 | P12 | Depoimentos e casos | Nenhum caso autorizado disponível. Nada foi inventado. | Coletar casos com autorização escrita. |
 

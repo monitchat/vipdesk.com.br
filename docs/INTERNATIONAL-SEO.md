@@ -132,8 +132,8 @@ Não verificável a partir deste repositório. Precisa de confirmação **antes*
 
 - **Search Console:** a propriedade de domínio cobre `/en/`. Filtre por página `/en/` e por país
   "Estados Unidos" e acompanhe impressões de consultas em inglês.
-- Para separar idiomas no GA4/GTM (quando instalado), use o prefixo de URL `/en/`. Os eventos
-  `cta_click` já trazem `page_path`.
+- Para separar idiomas no GA4, filtre pelo caminho da página com prefixo `/en/` (ou pela dimensão de idioma). Os eventos
+  `cta_click` são associados à página em que ocorreram.
 - **Expectativa realista:** sem histórico, sem backlinks em inglês e com `.com.br`, a indexação e
   as primeiras impressões em inglês podem levar semanas. Nada aqui garante ranking.
 

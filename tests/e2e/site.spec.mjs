@@ -5,6 +5,15 @@ import { PAGES } from '../../src/routes.mjs';
 
 const ROUTES = PAGES.filter((p) => p.indexable !== false);
 const ORIGIN = 'https://vipdesk.com.br';
+const GA_HOSTS = /^https:\/\/(www\.googletagmanager\.com|[a-z0-9.-]*google-analytics\.com|[a-z0-9.-]*analytics\.google\.com)\//;
+
+// Os testes nunca falam com o Google Analytics: o gtag.js é substituído por um script vazio e as
+// coletas são descartadas. Assim nenhum teste (nem contra produção) gera visitas falsas no GA4.
+test.beforeEach(async ({ page }) => {
+  await page.route(GA_HOSTS, (route) => (route.request().url().includes('/gtag/js')
+    ? route.fulfill({ status: 200, contentType: 'text/javascript', body: '/* gtag.js simulado nos testes */' })
+    : route.fulfill({ status: 204, body: '' })));
+});
 
 test.describe('rotas', () => {
   for (const page of ROUTES) {
@@ -88,10 +97,14 @@ test.describe('renderização e qualidade', () => {
     });
   }
 
-  test('nenhuma requisição a terceiros e fonte da marca carregada', async ({ page, baseURL }) => {
+  test('só o Google Analytics como terceiro e fonte da marca carregada', async ({ page, baseURL }) => {
     const origin = new URL(baseURL).origin;
     const thirdParty = [];
-    page.on('request', (r) => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) thirdParty.push(r.url()); });
+    const analytics = [];
+    page.on('request', (r) => {
+      if (r.url().startsWith(origin) || r.url().startsWith('data:')) return;
+      (GA_HOSTS.test(r.url()) ? analytics : thirdParty).push(r.url());
+    });
     await page.goto('/');
     const loaded = await page.evaluate(async () => {
       await document.fonts.ready;
@@ -99,6 +112,16 @@ test.describe('renderização e qualidade', () => {
     });
     expect(loaded).toBe(true);
     expect(thirdParty).toEqual([]);
+    expect(analytics).toEqual([expect.stringContaining('googletagmanager.com/gtag/js?id=G-5L7TXDVM7T')]);
+  });
+
+  test('Google Analytics configurado em todas as páginas (page_view)', async ({ page }) => {
+    for (const route of [ROUTES[0], ROUTES.find((r) => r.path === '/en/whatsapp-crm/'), ROUTES.find((r) => r.path === '/blog/')]) {
+      await page.goto(route.path);
+      const calls = await page.evaluate(() => (window.dataLayer || []).map((a) => Array.from(a)));
+      expect(calls.filter((c) => c[0] === 'config')).toEqual([['config', 'G-5L7TXDVM7T']]);
+      expect(calls.some((c) => c[0] === 'js')).toBe(true);
+    }
   });
 
   test('conteúdo principal visível sem JavaScript', async ({ browser }) => {
@@ -186,11 +209,11 @@ test.describe('navegação e CTAs', () => {
     const href = await cta.getAttribute('href');
     expect(href).toMatch(/^mailto:comercial@vipphone\.com\.br\?subject=/);
     expect(decodeURIComponent(href)).toContain('demonstração do VipDesk');
-    // não navega no teste: intercepta o clique e confere o evento do dataLayer
+    // não navega no teste: intercepta o clique e confere o evento enviado via gtag
     await page.evaluate(() => document.addEventListener('click', (e) => e.preventDefault()));
     await cta.click();
-    const events = await page.evaluate(() => window.dataLayer);
-    expect(events).toEqual([expect.objectContaining({ event: 'cta_click', cta_type: 'demo_request', cta_location: 'hero', page_path: '/crm-whatsapp/' })]);
+    const events = await page.evaluate(() => window.dataLayer.map((a) => Array.from(a)).filter((c) => c[0] === 'event'));
+    expect(events).toEqual([['event', 'cta_click', expect.objectContaining({ cta_type: 'demo_request', cta_location: 'hero' })]]);
   });
 
   test('botões têm área de toque de pelo menos 44px', async ({ page, isMobile }) => {

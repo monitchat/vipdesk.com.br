@@ -234,8 +234,23 @@ test('nenhum recurso externo bloqueia a renderização', () => {
   for (const p of pages) {
     const head = p.html.split('</head>')[0];
     for (const [tag] of head.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*>|<script\b[^>]*\bsrc="[^"]+"[^>]*>/g)) {
+      // A única exceção é a tag do Google Analytics, que é assíncrona (não bloqueia).
+      if (/^<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=[^"]+">$/.test(tag)) continue;
       assert.fail(`${p.path}: recurso bloqueante no <head>: ${tag}`);
     }
+  }
+});
+
+test('Google Analytics 4 em todas as páginas, uma vez, com o ID configurado', () => {
+  assert.equal(SITE.ga4Id, 'G-5L7TXDVM7T');
+  for (const p of pages) {
+    const head = p.html.split('</head>')[0];
+    const loaders = head.match(/<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=([^"]+)"><\/script>/g) || [];
+    assert.equal(loaders.length, 1, `${p.path}: tag gtag.js ausente ou duplicada`);
+    assert.ok(loaders[0].includes(`id=${SITE.ga4Id}`), `${p.path}: ID do GA4`);
+    assert.equal((head.match(/gtag\('config', '([^']+)'\)/g) || []).length, 1, `${p.path}: gtag config ausente ou duplicado`);
+    assert.ok(head.includes(`gtag('config', '${SITE.ga4Id}')`), `${p.path}: config com outro ID`);
+    assert.doesNotMatch(p.html, /googletagmanager\.com\/gtm\.js/, `${p.path}: GTM duplicaria a medição`);
   }
 });
 

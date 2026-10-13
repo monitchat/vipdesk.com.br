@@ -60,6 +60,8 @@ Versão em inglês: toda página indexável tem uma `key` igual à da sua tradu�
 se faltar a página equivalente em algum idioma. Detalhes e riscos para o mercado dos EUA em
 [`docs/INTERNATIONAL-SEO.md`](docs/INTERNATIONAL-SEO.md).
 
+Google Analytics 4 (ID em `src/config.mjs` → `ga4Id`): ver [`docs/ANALYTICS.md`](docs/ANALYTICS.md).
+
 Documentação de SEO: [`docs/SEO-PRODUCTION-VALIDATION.md`](docs/SEO-PRODUCTION-VALIDATION.md),
 [`docs/SEO-AUDIT.md`](docs/SEO-AUDIT.md),
 [`docs/SEO-STRATEGY.md`](docs/SEO-STRATEGY.md), [`docs/SEO-VALIDATION.md`](docs/SEO-VALIDATION.md).

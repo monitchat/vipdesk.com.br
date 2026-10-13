@@ -139,26 +139,24 @@ basta trocar `DEMO_HREF` em `src/config.mjs`.
 
 ### Eventos
 
+O Google Analytics 4 (`G-5L7TXDVM7T`) está instalado em todas as páginas com a tag gtag.js
+padrão. Detalhes, verificação e LGPD em [`ANALYTICS.md`](ANALYTICS.md).
+
 Todo clique em CTA executa:
 
 ```js
-dataLayer.push({ event: 'cta_click', cta_type, cta_location, page_path })
+gtag('event', 'cta_click', { cta_type, cta_location, link_url })
 ```
 
 `cta_type`: `demo_request`, `contact_click`, `trial_start`, `app_access`.
-Nada é enviado a terceiros: o `dataLayer` só é lido se um GTM for instalado.
 
-Para instalar GA4 via GTM (pendência P10):
-
-1. Implementar banner de consentimento (LGPD) e Consent Mode antes de qualquer tag.
-2. No GTM, acionador “Evento personalizado = `cta_click`”.
-3. Mapear para eventos GA4 **de clique** (intenção), não de conversão concluída:
-   `demo_request` → `demo_request_click`; `contact_click` → `contact_click`;
-   `trial_start` → `trial_start_click`; `app_access` → `app_access_click`.
-4. `generate_lead` e `sign_up` devem ser disparados **somente** quando o lead é
-   confirmado (e-mail recebido pelo comercial / cadastro concluído no app), por exemplo
-   via importação offline ou evento do app. Um clique em mailto não garante envio.
-5. Marcar como conversão principal apenas os eventos confirmados.
+- `cta_click` é um **clique** (intenção), não um lead confirmado: um clique em mailto não garante
+  que o e-mail foi enviado.
+- `generate_lead` e `sign_up` devem ser disparados **somente** quando o lead é confirmado
+  (e-mail recebido pelo comercial / cadastro concluído no app), por exemplo via importação offline
+  ou evento do próprio app.
+- Marque como evento-chave (conversão) no GA4 apenas o que for confirmado; se quiser acompanhar a
+  intenção, crie um evento-chave separado a partir de `cta_click` com `cta_type = demo_request`.
 
 ## 8. Indicadores de acompanhamento
 
@@ -166,7 +164,7 @@ Para instalar GA4 via GTM (pendência P10):
    não contém “vipdesk” / “vip desk”).
 2. Páginas comerciais indexadas (relatório de páginas da Search Console).
 3. Impressões, cliques, CTR e posição **por página comercial** e por consulta prioritária.
-4. Cliques em `demo_request` e `contact_click` por página de entrada orgânica (após GTM).
+4. Cliques em `demo_request` e `contact_click` por página de entrada orgânica (evento `cta_click` no GA4).
 5. Demonstrações agendadas, testes iniciados e leads qualificados com origem orgânica
    (perguntar “como nos conheceu” no contato comercial até haver medição).
 
@@ -179,7 +177,7 @@ A posição média global não deve ser usada como medida única de sucesso.
 - Confirmar HTTPS forçado e redirecionamento `www` → apex (ver `SEO-VALIDATION.md`).
 - Search Console: enviar `sitemap.xml`; inspecionar e solicitar indexação da home e das 6 páginas comerciais.
 - Rodar Rich Results Test e Schema Markup Validator na home, numa página comercial e num artigo.
-- Se GTM for instalado, validar `cta_click` no modo de visualização.
+- Validar no GA4 (Tempo real / DebugView) o `page_view` e o `cta_click`.
 
 **Dias 8–30**
 - Relatório de páginas: verificar quais URLs foram indexadas e motivos de exclusão.
