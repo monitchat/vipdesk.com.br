@@ -223,6 +223,9 @@ ol.passos h3 { margin-bottom: 4px; }
 .faixa .email { margin: 18px auto 0; font-size: 14.5px; }
 .faixa .email a { color: #fff; }
 .form-contato { max-width: 480px; margin: 32px auto 0; text-align: left; }
+/* Reserva a altura do formulário enquanto o widget carrega (evita CLS). Só com JS; se não carregar, libera. */
+.js .form-contato > div:empty { min-height: 640px; }
+.js .form-contato.sem-form > div { min-height: 0; }
 
 /* blog */
 .posts { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }

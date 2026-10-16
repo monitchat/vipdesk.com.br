@@ -83,7 +83,7 @@ export const faq = (items) => html`
 const contactForm = (lang) => {
   const f = SITE.contactForm[lang];
   return f ? html`
-      <div class="form-contato"><div id="${f.id}"></div></div>
+      <div class="form-contato" data-lead-form="${f.id}"><div id="${f.id}"></div></div>
       <script src="${f.widget}" data-config="${f.config}" data-target="${f.id}" async></script>` : '';
 };
 

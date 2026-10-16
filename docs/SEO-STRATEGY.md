@@ -128,14 +128,15 @@ e JSON-LD são gerados automaticamente).
 
 | CTA | Destino | Onde |
 | --- | --- | --- |
-| Agendar demonstração | `mailto:comercial@vipphone.com.br` com assunto e roteiro (nome, empresa, telefone, equipe, canais) | Hero e faixa final de todas as páginas comerciais e da home |
-| Falar com especialista | `mailto:` comercial com assunto próprio | Ao lado da demonstração |
+| Agendar demonstração | Páginas em português: formulário de contato da faixa `#contato`, com o campo Mensagem preenchido. Inglês: `mailto:comercial@vipphone.com.br` com assunto e roteiro | Hero de todas as páginas comerciais e da home (faixa final só em inglês) |
+| Falar com especialista | Igual à demonstração, com mensagem própria | Ao lado da demonstração |
 | Experimentar grátis | **Oculto** até `SITE.trialUrl` ser preenchido (pendência P1) | Substitui “Falar com especialista” quando ativado |
 | Acessar a plataforma | `https://app.vipdesk.com.br` | Cabeçalho, menu mobile, rodapé |
 
-Não foi criado formulário nem backend paralelo: o fluxo comercial existente é o e-mail.
-Se a empresa adotar uma agenda comercial (ex.: link de agendamento do próprio VipDesk),
-basta trocar `DEMO_HREF` em `src/config.mjs`.
+Nas páginas em português a faixa `#contato` traz o formulário do módulo de Formulários do VipDesk
+(`SITE.contactForm` em `src/config.mjs`), que cria o contato/negócio no CRM. Os textos que cada botão
+escreve no campo Mensagem também ficam lá. Se a empresa adotar uma agenda comercial, basta preencher
+`SITE.demoUrl`.
 
 ### Eventos
 
@@ -152,9 +153,17 @@ gtag('event', 'cta_click', { cta_type, cta_location, link_url })
 
 - `cta_click` é um **clique** (intenção), não um lead confirmado: um clique em mailto não garante
   que o e-mail foi enviado.
-- `generate_lead` e `sign_up` devem ser disparados **somente** quando o lead é confirmado
-  (e-mail recebido pelo comercial / cadastro concluído no app), por exemplo via importação offline
-  ou evento do próprio app.
+- `generate_lead` e `sign_up` devem ser disparados **somente** quando o lead é confirmado.
+  O formulário de contato dispara `generate_lead` quando o servidor aceita o envio (mensagem de
+  sucesso do widget):
+
+  ```js
+  gtag('event', 'generate_lead', { form_id, lead_source })
+  ```
+
+  `lead_source` é o botão que levou ao formulário (`demo_request`, `contact_click`) ou `direto`.
+  O anti-spam do formulário responde sucesso silencioso a robôs, então pode haver uma pequena
+  contagem a mais; o número real é o de contatos criados no CRM.
 - Marque como evento-chave (conversão) no GA4 apenas o que for confirmado; se quiser acompanhar a
   intenção, crie um evento-chave separado a partir de `cta_click` com `cta_type = demo_request`.
 
@@ -177,7 +186,7 @@ A posição média global não deve ser usada como medida única de sucesso.
 - Confirmar HTTPS forçado e redirecionamento `www` → apex (ver `SEO-VALIDATION.md`).
 - Search Console: enviar `sitemap.xml`; inspecionar e solicitar indexação da home e das 6 páginas comerciais.
 - Rodar Rich Results Test e Schema Markup Validator na home, numa página comercial e num artigo.
-- Validar no GA4 (Tempo real / DebugView) o `page_view` e o `cta_click`.
+- Validar no GA4 (Tempo real / DebugView) o `page_view`, o `cta_click` e o `generate_lead`.
 
 **Dias 8–30**
 - Relatório de páginas: verificar quais URLs foram indexadas e motivos de exclusão.
