@@ -5,6 +5,8 @@ import { PAGES } from '../../src/routes.mjs';
 
 const ROUTES = PAGES.filter((p) => p.indexable !== false);
 const ORIGIN = 'https://vipdesk.com.br';
+// Widget do formulário de contato (faixa #contato das páginas em português).
+const FORM_HOSTS = /^https:\/\/lp\.vipdesk\.chat\//;
 const GA_HOSTS = /^https:\/\/(www\.googletagmanager\.com|[a-z0-9.-]*google-analytics\.com|[a-z0-9.-]*analytics\.google\.com)\//;
 
 // Os testes nunca falam com o Google Analytics: o gtag.js é substituído por um script vazio e as
@@ -97,12 +99,12 @@ test.describe('renderização e qualidade', () => {
     });
   }
 
-  test('só o Google Analytics como terceiro e fonte da marca carregada', async ({ page, baseURL }) => {
+  test('só o Google Analytics e o formulário de contato como terceiros, e fonte da marca carregada', async ({ page, baseURL }) => {
     const origin = new URL(baseURL).origin;
     const thirdParty = [];
     const analytics = [];
     page.on('request', (r) => {
-      if (r.url().startsWith(origin) || r.url().startsWith('data:')) return;
+      if (r.url().startsWith(origin) || r.url().startsWith('data:') || FORM_HOSTS.test(r.url())) return;
       (GA_HOSTS.test(r.url()) ? analytics : thirdParty).push(r.url());
     });
     await page.goto('/');

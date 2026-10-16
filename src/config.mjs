@@ -24,6 +24,15 @@ export const SITE = {
   // VipDesk com a agenda do time comercial). Nenhum link desses existe neste repositório; enquanto
   // for null, "Agendar demonstração" abre um e-mail pré-preenchido para o comercial.
   demoUrl: null,
+  // Formulário de contato do módulo de Formulários do VipDesk (vira contato/negócio no CRM).
+  // Embutido na faixa #contato. Os campos são em português, então só existe para 'pt'.
+  contactForm: {
+    pt: {
+      id: 'vd-form-formulario-do-site-vipdeskcombr',
+      widget: 'https://lp.vipdesk.chat/f/widget',
+      config: 'https://lp.vipdesk.chat/f/vipphone/formulario-do-site-vipdeskcombr/config.json',
+    },
+  },
   emails: {
     sales: 'comercial@vipphone.com.br',
     support: 'suporte@vipphone.com.br',

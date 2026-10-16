@@ -222,6 +222,7 @@ ol.passos h3 { margin-bottom: 4px; }
 .faixa .acoes { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .faixa .email { margin: 18px auto 0; font-size: 14.5px; }
 .faixa .email a { color: #fff; }
+.form-contato { max-width: 480px; margin: 32px auto 0; text-align: left; }
 
 /* blog */
 .posts { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }

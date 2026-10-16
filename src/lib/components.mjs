@@ -71,6 +71,14 @@ export const faq = (items) => html`
   </details>`)}
 </div>`;
 
+// Formulário de contato embutido (widget externo). Sem JavaScript, os botões e o e-mail da faixa continuam valendo.
+const contactForm = (lang) => {
+  const f = SITE.contactForm[lang];
+  return f ? html`
+      <div class="form-contato"><div id="${f.id}"></div></div>
+      <script src="${f.widget}" data-config="${f.config}" data-target="${f.id}" async></script>` : '';
+};
+
 export const ctaBand = ({ title, text, location = 'faixa_final', lang }) => {
   const t = ui(lang);
   return html`
@@ -79,7 +87,7 @@ export const ctaBand = ({ title, text, location = 'faixa_final', lang }) => {
     <div class="faixa">
       <h2>${title || t.ctaTitle}</h2>
       <p>${text || t.ctaText}</p>
-      <div class="acoes">${ctaPair(location, lang)}</div>
+      <div class="acoes">${ctaPair(location, lang)}</div>${contactForm(lang)}
       <p class="email">${t.ctaEmail} <a href="mailto:${SITE.emails.sales}" data-cta="contact_click" data-cta-local="${location}_email">${SITE.emails.sales}</a></p>
     </div>
   </div>
