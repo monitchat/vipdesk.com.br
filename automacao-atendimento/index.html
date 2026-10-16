@@ -84,7 +84,7 @@
     <p class="sub">Deixe com a plataforma as tarefas repetitivas — distribuir leads, cobrar prazos, enviar
     follow-ups e lembretes — e libere a equipe para as conversas que precisam de gente.</p>
     
-    <div class="acoes"><a class="btn btn-claro" href="mailto:comercial@vipphone.com.br?subject=Quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20VipDesk&amp;body=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20VipDesk.%0A%0ANome%3A%0AEmpresa%3A%0ATelefone%2FWhatsApp%3A%0ATamanho%20da%20equipe%20de%20atendimento%2Fvendas%3A%0ACanais%20que%20usamos%20hoje%20(WhatsApp%2C%20Instagram%2C%20e-mail...)%3A%0A" data-cta="demo_request" data-cta-local="hero">Agendar demonstração</a><a class="btn btn-fantasma" href="mailto:comercial@vipphone.com.br?subject=Quero%20falar%20com%20um%20especialista%20do%20VipDesk&amp;body=Ol%C3%A1!%20Gostaria%20de%20conversar%20sobre%20o%20VipDesk%20para%20a%20minha%20empresa.%0A%0ANome%3A%0AEmpresa%3A%0ATelefone%2FWhatsApp%3A%0A" data-cta="contact_click" data-cta-local="hero">Falar com especialista</a></div>
+    <div class="acoes"><a class="btn btn-claro" href="#contato" data-cta="demo_request" data-cta-local="hero" data-form-field="mensagem" data-form-msg="Olá! Gostaria de agendar uma demonstração do VipDesk.">Agendar demonstração</a><a class="btn btn-fantasma" href="#contato" data-cta="contact_click" data-cta-local="hero" data-form-field="mensagem" data-form-msg="Olá! Gostaria de falar com um especialista sobre o VipDesk para a minha empresa.">Falar com especialista</a></div>
     
   </div>
 </div>
@@ -186,7 +186,7 @@
     <div class="faixa">
       <h2>Descubra o que automatizar na sua operação</h2>
       <p>Na demonstração, mapeamos as tarefas repetitivas da sua equipe e mostramos como configurá-las no VipDesk.</p>
-      <div class="acoes"><a class="btn btn-claro" href="mailto:comercial@vipphone.com.br?subject=Quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20VipDesk&amp;body=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20VipDesk.%0A%0ANome%3A%0AEmpresa%3A%0ATelefone%2FWhatsApp%3A%0ATamanho%20da%20equipe%20de%20atendimento%2Fvendas%3A%0ACanais%20que%20usamos%20hoje%20(WhatsApp%2C%20Instagram%2C%20e-mail...)%3A%0A" data-cta="demo_request" data-cta-local="faixa_final">Agendar demonstração</a><a class="btn btn-fantasma" href="mailto:comercial@vipphone.com.br?subject=Quero%20falar%20com%20um%20especialista%20do%20VipDesk&amp;body=Ol%C3%A1!%20Gostaria%20de%20conversar%20sobre%20o%20VipDesk%20para%20a%20minha%20empresa.%0A%0ANome%3A%0AEmpresa%3A%0ATelefone%2FWhatsApp%3A%0A" data-cta="contact_click" data-cta-local="faixa_final">Falar com especialista</a></div>
+      
       <div class="form-contato"><div id="vd-form-formulario-do-site-vipdeskcombr"></div></div>
       <script src="https://lp.vipdesk.chat/f/widget" data-config="https://lp.vipdesk.chat/f/vipphone/formulario-do-site-vipdeskcombr/config.json" data-target="vd-form-formulario-do-site-vipdeskcombr" async></script>
       <p class="email">Prefere escrever direto? <a href="mailto:comercial@vipphone.com.br" data-cta="contact_click" data-cta-local="faixa_final_email">comercial@vipphone.com.br</a></p>
@@ -232,6 +232,6 @@
     </div>
   </div>
 </footer>
-<script>(function(){var m=function(){return document.querySelectorAll('details.menu[open]')};document.addEventListener('click',function(e){m().forEach(function(d){if(!d.contains(e.target))d.removeAttribute('open')});var a=e.target.closest&&e.target.closest('[data-cta]');if(a&&typeof window.gtag==='function'){window.gtag('event','cta_click',{cta_type:a.getAttribute('data-cta'),cta_location:a.getAttribute('data-cta-local')||'',link_url:a.href})}});document.addEventListener('keydown',function(e){if(e.key==='Escape')m().forEach(function(d){d.removeAttribute('open');var s=d.querySelector('summary');if(s)s.focus()})})})();</script>
+<script>(function(){var m=function(){return document.querySelectorAll('details.menu[open]')};document.addEventListener('click',function(e){m().forEach(function(d){if(!d.contains(e.target))d.removeAttribute('open')});var a=e.target.closest&&e.target.closest('[data-cta]');if(a&&typeof window.gtag==='function'){window.gtag('event','cta_click',{cta_type:a.getAttribute('data-cta'),cta_location:a.getAttribute('data-cta-local')||'',link_url:a.href})}var f=e.target.closest&&e.target.closest('[data-form-msg]');if(f){var msg=f.getAttribute('data-form-msg'),fld=f.getAttribute('data-form-field'),prev=window.__vdFormMsg,n=0;window.__vdFormMsg=msg;(function t(){var x=document.querySelector('#contato [name="'+fld+'"]');if(x){if(!x.value||x.value===prev){x.value=msg;x.dispatchEvent(new Event('input',{bubbles:true}))}}else if(n++<40)setTimeout(t,250)})()}});document.addEventListener('keydown',function(e){if(e.key==='Escape')m().forEach(function(d){d.removeAttribute('open');var s=d.querySelector('summary');if(s)s.focus()})})})();</script>
 </body>
 </html>

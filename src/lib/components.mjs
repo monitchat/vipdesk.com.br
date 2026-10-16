@@ -4,9 +4,17 @@ import { SOLUTIONS, solution } from '../navigation.mjs';
 import { ui } from '../i18n.mjs';
 import { esc, html } from './html.mjs';
 
+// Mensagem que o botão escreve no formulário de contato (só quando o CTA leva a ele).
+const formMsg = (lang, type, href) => {
+  const f = SITE.contactForm[lang];
+  return f && href === '#contato' && f.messages[type]
+    ? html` data-form-field="${f.messageField}" data-form-msg="${esc(f.messages[type])}"`
+    : '';
+};
+
 // CTAs padronizados. `data-cta` alimenta a medição (ver docs/SEO-STRATEGY.md#mensuração).
 export const demoButton = (location, lang, cls = 'btn-claro') =>
-  html`<a class="btn ${cls}" href="${esc(demoHref(lang))}" data-cta="demo_request" data-cta-local="${location}">${ui(lang).demo}</a>`;
+  html`<a class="btn ${cls}" href="${esc(demoHref(lang))}" data-cta="demo_request" data-cta-local="${location}"${formMsg(lang, 'demo_request', demoHref(lang))}>${ui(lang).demo}</a>`;
 
 export const trialButton = (location, lang, cls = 'btn-fantasma') =>
   SITE.trialUrl
@@ -14,7 +22,7 @@ export const trialButton = (location, lang, cls = 'btn-fantasma') =>
     : '';
 
 export const contactButton = (location, lang, cls = 'btn-fantasma') =>
-  html`<a class="btn ${cls}" href="${esc(contactHref(lang))}" data-cta="contact_click" data-cta-local="${location}">${ui(lang).specialist}</a>`;
+  html`<a class="btn ${cls}" href="${esc(contactHref(lang))}" data-cta="contact_click" data-cta-local="${location}"${formMsg(lang, 'contact_click', contactHref(lang))}>${ui(lang).specialist}</a>`;
 
 // Par de CTAs principal: demonstração + (teste grátis, se houver URL confirmada; senão, especialista).
 export const ctaPair = (location, lang) =>
@@ -87,7 +95,7 @@ export const ctaBand = ({ title, text, location = 'faixa_final', lang }) => {
     <div class="faixa">
       <h2>${title || t.ctaTitle}</h2>
       <p>${text || t.ctaText}</p>
-      <div class="acoes">${ctaPair(location, lang)}</div>${contactForm(lang)}
+      ${SITE.contactForm[lang] ? contactForm(lang) : html`<div class="acoes">${ctaPair(location, lang)}</div>`}
       <p class="email">${t.ctaEmail} <a href="mailto:${SITE.emails.sales}" data-cta="contact_click" data-cta-local="${location}_email">${SITE.emails.sales}</a></p>
     </div>
   </div>

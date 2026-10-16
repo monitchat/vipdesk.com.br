@@ -31,6 +31,12 @@ export const SITE = {
       id: 'vd-form-formulario-do-site-vipdeskcombr',
       widget: 'https://lp.vipdesk.chat/f/widget',
       config: 'https://lp.vipdesk.chat/f/vipphone/formulario-do-site-vipdeskcombr/config.json',
+      // Campo que os botões preenchem com a mensagem do CTA clicado (chave = data-cta).
+      messageField: 'mensagem',
+      messages: {
+        demo_request: 'Olá! Gostaria de agendar uma demonstração do VipDesk.',
+        contact_click: 'Olá! Gostaria de falar com um especialista sobre o VipDesk para a minha empresa.',
+      },
     },
   },
   emails: {
@@ -57,5 +63,6 @@ const mailto = (to, { subject, body }) =>
 
 // Pedido de demonstração: o fluxo comercial existente é o e-mail do time comercial, com assunto
 // e roteiro de qualificação no idioma da página. `SITE.demoUrl`, quando preenchido, substitui tudo.
-export const demoHref = (lang) => SITE.demoUrl || mailto(SITE.emails.sales, ui(lang).demoMail);
-export const contactHref = (lang) => mailto(SITE.emails.sales, ui(lang).contactMail);
+// Com formulário de contato no idioma, os dois CTAs levam a ele (faixa #contato da própria página).
+export const demoHref = (lang) => SITE.demoUrl || (SITE.contactForm[lang] ? '#contato' : mailto(SITE.emails.sales, ui(lang).demoMail));
+export const contactHref = (lang) => (SITE.contactForm[lang] ? '#contato' : mailto(SITE.emails.sales, ui(lang).contactMail));

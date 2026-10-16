@@ -204,13 +204,12 @@ test.describe('navegação e CTAs', () => {
     await expect(page.locator('a.pular')).toBeFocused();
   });
 
-  test('CTA de demonstração abre e-mail comercial com assunto e registra evento', async ({ page }) => {
+  test('CTA de demonstração leva ao formulário com mensagem e registra evento', async ({ page }) => {
     await page.goto('/crm-whatsapp/');
     const cta = page.locator('.hero [data-cta="demo_request"]');
     await expect(cta).toHaveText('Agendar demonstração');
-    const href = await cta.getAttribute('href');
-    expect(href).toMatch(/^mailto:comercial@vipphone\.com\.br\?subject=/);
-    expect(decodeURIComponent(href)).toContain('demonstração do VipDesk');
+    await expect(cta).toHaveAttribute('href', '#contato');
+    await expect(cta).toHaveAttribute('data-form-msg', /demonstração do VipDesk/);
     // não navega no teste: intercepta o clique e confere o evento enviado via gtag
     await page.evaluate(() => document.addEventListener('click', (e) => e.preventDefault()));
     await cta.click();

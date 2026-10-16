@@ -212,6 +212,7 @@ test('CTAs apontam para fluxos existentes', () => {
       const href = tag.match(/href="([^"]+)"/)[1].replace(/&amp;/g, '&');
       const type = tag.match(/data-cta="([^"]+)"/)[1];
       if (type === 'demo_request' && SITE.demoUrl) assert.equal(href, SITE.demoUrl);
+      else if ((type === 'demo_request' || type === 'contact_click') && SITE.contactForm[p.lang] && href === '#contato') assert.match(tag, /data-form-msg="[^"]+"/, `${p.path}: CTA sem mensagem do formulário`);
       else if (type === 'demo_request' || type === 'contact_click') assert.match(href, /^mailto:comercial@vipphone\.com\.br(\?|$)/);
       else if (type === 'trial_start') assert.equal(href, SITE.trialUrl);
       else if (type === 'app_access') assert.equal(href, 'https://app.vipdesk.com.br');
