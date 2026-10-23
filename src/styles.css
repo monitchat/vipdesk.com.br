@@ -299,3 +299,52 @@ footer.rodape a:hover { color: #fff; text-decoration: underline; }
   ol.passos li { padding-left: 62px; }
   .legal { padding: 0 16px 56px; }
 }
+
+/* DeskFlow (editor visual de fluxos): faixa de destaque na home e blocos da landing /deskflow/ */
+.deskflow-faixa {
+  background:
+    radial-gradient(900px 420px at 85% 0%, rgba(0,169,183,.18), transparent 60%),
+    linear-gradient(150deg, #4a2459 0%, var(--roxo) 55%, var(--roxo-claro) 100%);
+  color: #fff;
+}
+.deskflow-faixa .selo {
+  display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.82); margin-bottom: 14px;
+}
+.deskflow-faixa h2 { color: #fff; max-width: 20ch; }
+.deskflow-faixa p { color: rgba(255,255,255,.92); font-size: 17px; margin-top: 16px; max-width: 52ch; }
+.deskflow-faixa .acoes { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.deskflow-faixa .duas { grid-template-columns: 5fr 7fr; align-items: center; gap: 44px; }
+.deskflow-faixa ul.lista { margin-top: 22px; }
+.deskflow-faixa ul.lista li { color: rgba(255,255,255,.92); font-size: 15.5px; }
+.deskflow-faixa ul.lista li::before { background: linear-gradient(135deg, #fff, var(--teal)); }
+.deskflow-faixa .nota { margin-top: 18px; font-size: 14.5px; color: rgba(255,255,255,.82); max-width: 52ch; }
+
+.moldura {
+  margin: 0; border-radius: 13px; overflow: hidden; background: #fff;
+  border: 1px solid var(--borda); box-shadow: 0 24px 60px rgba(31,36,48,.18);
+}
+.moldura img, .moldura video { display: block; width: 100%; height: auto; }
+.deskflow-faixa .moldura { border-color: rgba(255,255,255,.25); box-shadow: 0 30px 70px rgba(0,0,0,.35); }
+.legenda { margin-top: 12px; font-size: 14px; color: var(--texto); }
+.deskflow-faixa .legenda { color: rgba(255,255,255,.78); }
+
+.lado-a-lado { display: grid; grid-template-columns: 7fr 5fr; gap: 44px; align-items: start; }
+.lado-a-lado.invertido { grid-template-columns: 5fr 7fr; }
+.lado-a-lado .moldura { max-width: 520px; }
+.lado-a-lado .moldura.estreita { max-width: 300px; }
+.lado-a-lado p + ul { margin-top: 18px; }
+.lado-a-lado .texto p { font-size: 16.5px; }
+.acoes-inline { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.painel .acoes-inline { margin-top: 18px; }
+.video-demo { aspect-ratio: 16 / 9; background: var(--tinta); }
+.video-demo video { aspect-ratio: 16 / 9; }
+
+@media (max-width: 860px) {
+  .deskflow-faixa .duas, .lado-a-lado, .lado-a-lado.invertido { grid-template-columns: 1fr; }
+  .lado-a-lado .moldura { max-width: none; }
+  .lado-a-lado .moldura.estreita { max-width: 300px; }
+}
+@media (max-width: 560px) {
+  .deskflow-faixa .acoes .btn, .acoes-inline .btn { width: 100%; text-align: center; }
+}

@@ -6,6 +6,7 @@ import omnichannel from './pages/solucoes/atendimento-omnichannel.mjs';
 import automacao from './pages/solucoes/automacao-atendimento.mjs';
 import agendamento from './pages/solucoes/agendamento-whatsapp.mjs';
 import ia from './pages/solucoes/inteligencia-artificial-atendimento.mjs';
+import deskflow from './pages/solucoes/deskflow.mjs';
 import homeEn from './pages/en/home.mjs';
 import whatsappEn from './pages/en/solutions/whatsapp-customer-service.mjs';
 import crmEn from './pages/en/solutions/whatsapp-crm.mjs';
@@ -13,15 +14,16 @@ import omnichannelEn from './pages/en/solutions/omnichannel-customer-service.mjs
 import automationEn from './pages/en/solutions/customer-service-automation.mjs';
 import schedulingEn from './pages/en/solutions/whatsapp-appointment-scheduling.mjs';
 import aiEn from './pages/en/solutions/ai-customer-service.mjs';
+import deskflowEn from './pages/en/solutions/deskflow.mjs';
 import { legalPages } from './pages/legal/legal.mjs';
 import notFound from './pages/not-found.mjs';
 import { POSTS } from './pages/blog/posts.mjs';
 import { articlePage, blogIndexPage } from './lib/blog.mjs';
 
 export const PAGES = [
-  home, whatsapp, crm, omnichannel, automacao, agendamento, ia,
+  home, whatsapp, crm, omnichannel, automacao, deskflow, agendamento, ia,
   blogIndexPage('pt'), ...POSTS.pt.map(articlePage), ...legalPages('pt'),
-  homeEn, whatsappEn, crmEn, omnichannelEn, automationEn, schedulingEn, aiEn,
+  homeEn, whatsappEn, crmEn, omnichannelEn, automationEn, deskflowEn, schedulingEn, aiEn,
   blogIndexPage('en'), ...POSTS.en.map(articlePage), ...legalPages('en'),
   notFound,
 ];

@@ -4,6 +4,7 @@
 import { SITE } from '../config.mjs';
 import { html } from '../lib/html.mjs';
 import { hero, section, cards as cardsIn, faq, ctaBand, list } from '../lib/components.mjs';
+import { deskflowBand } from '../lib/deskflow.mjs';
 
 const cards = (items) => cardsIn(items, 'pt');
 import { faqPage, softwareApplication } from '../lib/schema.mjs';
@@ -95,7 +96,8 @@ const RECURSOS = [
   {
     title: 'Automações',
     text: `Regras por etapa do funil com condições e sequências de follow-up, incluindo passos de
-      espera que são cancelados automaticamente quando o cliente responde.`,
+      espera que são cancelados automaticamente quando o cliente responde. Para processos
+      personalizados, o editor visual de fluxos do DeskFlow.`,
     link: { href: '/automacao-atendimento/', label: 'Automação de atendimento' },
   },
   {
@@ -266,6 +268,7 @@ ${section({
     e o time comercial, do primeiro contato até o fechamento.`,
   content: cards(RECURSOS),
 })}
+${deskflowBand('pt')}
 ${section({
   alt: true,
   title: 'Por que equipes escolhem o VipDesk',

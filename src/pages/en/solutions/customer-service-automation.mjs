@@ -57,6 +57,11 @@ export default landingPage({
           text: 'Triage, conversation summaries and reply suggestions, always reviewed by the agent.',
           link: { href: '/en/ai-customer-service/', label: 'AI for customer service' },
         },
+        {
+          title: 'Custom flows with DeskFlow',
+          text: 'For processes the rules don’t cover: guided conversations, lookups in other systems through APIs and chained actions in the CRM and on tickets, built in a visual editor.',
+          link: { href: '/en/deskflow/', label: 'DeskFlow — Visual automation' },
+        },
       ]),
     },
     {
@@ -123,7 +128,7 @@ export default landingPage({
         <a href="/en/whatsapp-appointment-scheduling/">WhatsApp appointment scheduling</a>.</p>`,
     },
   ],
-  related: ['/en/whatsapp-crm/', '/en/ai-customer-service/', '/en/whatsapp-appointment-scheduling/'],
+  related: ['/en/deskflow/', '/en/whatsapp-crm/', '/en/ai-customer-service/'],
   posts: ['/en/blog/first-response-time/', '/en/blog/connect-customer-service-and-sales-pipeline/'],
   cta: {
     title: 'Find out what to automate in your operation',

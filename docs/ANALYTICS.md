@@ -15,7 +15,7 @@ Instalado em 13/10/2026.
 | Parâmetro | Valores |
 | --- | --- |
 | `cta_type` | `demo_request` (Agendar demonstração / Book a demo), `contact_click` (Falar com especialista / e-mail comercial), `app_access` (Acessar a plataforma / Log in), `trial_start` (quando o teste grátis for ligado) |
-| `cta_location` | `hero`, `faixa_final`, `topo`, `menu_movel`, `rodape`, `artigo`, `blog`, `*_email` |
+| `cta_location` | `hero`, `faixa_final`, `topo`, `menu_movel`, `rodape`, `artigo`, `blog`, `*_email`; na home e em /deskflow/: `deskflow_home`, `deskflow_editor`, `deskflow_integracoes`, `deskflow_exemplos` |
 | `link_url` | destino do botão |
 
 `cta_click` é um **clique** (intenção). Um clique em "Agendar demonstração" abre o e-mail, mas

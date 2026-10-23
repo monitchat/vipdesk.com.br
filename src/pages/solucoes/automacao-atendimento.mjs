@@ -56,6 +56,11 @@ export default landingPage({
           text: 'Triagem, resumo de conversas e sugestões de resposta, sempre revisadas pelo atendente.',
           link: { href: '/inteligencia-artificial-atendimento/', label: 'IA no atendimento' },
         },
+        {
+          title: 'Fluxos personalizados com o DeskFlow',
+          text: 'Para processos que as regras não cobrem: conversas guiadas, consultas a outros sistemas por API e ações encadeadas no CRM e nos chamados, montadas num editor visual.',
+          link: { href: '/deskflow/', label: 'DeskFlow — Automação visual' },
+        },
       ]),
     },
     {
@@ -125,7 +130,7 @@ export default landingPage({
         o <a href="/agendamento-whatsapp/">agendamento pelo WhatsApp</a>.</p>`,
     },
   ],
-  related: ['/crm-whatsapp/', '/inteligencia-artificial-atendimento/', '/agendamento-whatsapp/'],
+  related: ['/deskflow/', '/crm-whatsapp/', '/inteligencia-artificial-atendimento/'],
   posts: ['/blog/tempo-de-primeira-resposta/', '/blog/integrar-atendimento-e-funil-de-vendas/'],
   cta: {
     title: 'Descubra o que automatizar na sua operação',

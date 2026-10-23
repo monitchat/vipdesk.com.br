@@ -5,6 +5,7 @@
 import { SITE } from '../../config.mjs';
 import { html } from '../../lib/html.mjs';
 import { hero, section, cards as cardsIn, faq, ctaBand, list } from '../../lib/components.mjs';
+import { deskflowBand } from '../../lib/deskflow.mjs';
 import { faqPage, softwareApplication } from '../../lib/schema.mjs';
 import { POSTS } from '../blog/posts.mjs';
 
@@ -245,6 +246,7 @@ ${section({
     and your sales team, from first contact to closed deal.`,
   content: cards(FEATURES),
 })}
+${deskflowBand('en')}
 ${section({
   alt: true,
   title: 'Why teams choose VipDesk',

@@ -15,7 +15,8 @@ src/
   navigation.mjs    páginas comerciais por idioma (menu, rodapé, cards)
   routes.mjs        todas as páginas, nos dois idiomas; calcula os hreflang
   styles.css        estilos (inline em cada página no build)
-  lib/              layout, componentes, template de landing page, blog, JSON-LD
+  lib/              layout, componentes, template de landing page, blog, JSON-LD,
+                    deskflow.mjs (faixa da home, imagens, vídeo e VideoObject do DeskFlow)
   pages/            conteúdo: home, solucoes/, blog/ (artigos/ e en/), en/ (home e solutions/),
                     legal/ (texto jurídico em *.body.html; tradução em *.en.body.html)
 scripts/
@@ -24,6 +25,7 @@ scripts/
   measure.mjs       medição de laboratório (LCP, CLS, bytes)
   audit.mjs         auditoria de SEO reexecutável (SEO_BASE_URL=https://vipdesk.com.br)
   make-images.py    gera favicons, ícone 2x e imagem Open Graph a partir da marca
+  deskflow-captures/ capturas reais do editor DeskFlow usadas em assets/deskflow/ (ver README)
 tests/static/       testes de SEO sobre o HTML gerado (node --test)
 tests/e2e/          testes de navegador e acessibilidade (Playwright + axe-core)
 docs/               auditoria, estratégia e validação de SEO
@@ -102,3 +104,9 @@ compara esta página com os escopos solicitados. Há um teste automatizado
 As páginas comerciais só descrevem funcionalidades documentadas neste site
 (home, Termos e Política). Antes de anunciar um recurso novo, confirme que ele
 existe no produto.
+
+A página `/deskflow/` (e `/en/deskflow/`) descreve o DeskFlow, o editor visual de fluxos
+embutido no VipDesk, a partir da implementação real (`deskflow-app` e `deskflow-api`).
+Ele é apresentado como recurso do VipDesk, não como produto ou assinatura à parte. As
+capturas de `assets/deskflow/` são do editor real, sem dados de clientes
+(`scripts/deskflow-captures/README.md`).

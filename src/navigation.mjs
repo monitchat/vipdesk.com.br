@@ -27,6 +27,12 @@ export const SOLUTIONS = {
       short: 'Regras, follow-ups, SLA com alertas e escalonamento automático.',
     },
     {
+      key: 'deskflow',
+      path: '/deskflow/',
+      label: 'DeskFlow — Automação visual',
+      short: 'Editor visual de fluxos: gatilhos, condições, ações no CRM e integrações via API.',
+    },
+    {
       key: 'scheduling',
       path: '/agendamento-whatsapp/',
       label: 'Agendamento pelo WhatsApp',
@@ -63,6 +69,12 @@ export const SOLUTIONS = {
       path: '/en/customer-service-automation/',
       label: 'Customer service automation',
       short: 'Rules, follow-ups, SLA alerts and automatic escalation.',
+    },
+    {
+      key: 'deskflow',
+      path: '/en/deskflow/',
+      label: 'DeskFlow — Visual automation',
+      short: 'Visual flow builder: triggers, conditions, CRM actions and API integrations.',
     },
     {
       key: 'scheduling',
