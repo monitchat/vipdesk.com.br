@@ -92,7 +92,7 @@ const BAND = {
     title: 'Automatize processos inteiros, não apenas mensagens.',
     text: 'Com o DeskFlow, você constrói automações visuais que conectam atendimento, CRM, integrações e tarefas operacionais em fluxos personalizados.',
     bullets: [
-      'Arraste blocos e conecte etapas: sem escrever código.',
+      'Chatbot para WhatsApp com menus, captura de dados e agentes de IA, sem escrever código.',
       'Ações diretas no VipDesk: criar negócio no CRM, transferir, mudar status, aplicar tags.',
       'Consulta e grava em outros sistemas por API, com resposta usada no fluxo.',
     ],
@@ -105,7 +105,7 @@ const BAND = {
     title: 'Automate whole processes, not just messages.',
     text: 'With DeskFlow you build visual automations that connect customer service, CRM, integrations and operational tasks into custom flows.',
     bullets: [
-      'Drag blocks and connect steps: no code required.',
+      'A WhatsApp chatbot with menus, data capture and AI agents, no code required.',
       'Actions inside VipDesk: create a CRM deal, transfer, change status, apply tags.',
       'Reads from and writes to other systems through APIs, using the response in the flow.',
     ],

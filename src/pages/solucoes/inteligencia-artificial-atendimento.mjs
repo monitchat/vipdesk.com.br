@@ -1,7 +1,7 @@
-// Intenção: "inteligência artificial no atendimento".
-// A rota sugerida originalmente era /chatbot-inteligencia-artificial, mas o site só documenta
-// IA de apoio ao atendente (triagem, resumo, sugestão, classificação), não um chatbot que
-// conduza conversas sozinho. Ver docs/SEO-AUDIT.md (pendências).
+// Intenção: "inteligência artificial no atendimento" e "IA no WhatsApp".
+// Dois usos distintos e verificados: a IA de apoio ao atendente (triagem, resumo, sugestão,
+// classificação) e os agentes de IA conversacionais montados no DeskFlow (/deskflow/), que
+// conduzem conversas no WhatsApp com ferramentas e transferência para humanos.
 import { landingPage } from '../../lib/landing.mjs';
 import { html } from '../../lib/html.mjs';
 import { steps, panels, cards as cardsIn } from '../../lib/components.mjs';
@@ -11,9 +11,9 @@ const cards = (items) => cardsIn(items, 'pt');
 export default landingPage({
   lang: 'pt',
   path: '/inteligencia-artificial-atendimento/',
-  title: 'Inteligência Artificial no Atendimento | VipDesk',
+  title: 'Inteligência Artificial no Atendimento e no WhatsApp | VipDesk',
   description:
-    'Use IA para apoiar a triagem, resumir conversas, sugerir respostas e classificar oportunidades no VipDesk, sem tirar da equipe a decisão final.',
+    'IA no VipDesk: triagem, resumos e sugestões de resposta para a equipe, e agentes de IA no WhatsApp que conversam, consultam sistemas e transferem para humanos.',
   h1: 'Inteligência artificial no atendimento, com o atendente no controle',
   lead: `A IA do VipDesk acelera o trabalho da equipe: apoia a triagem, resume conversas longas,
     sugere respostas e ajuda a classificar oportunidades. Quem decide o que é enviado ao cliente
@@ -65,6 +65,19 @@ export default landingPage({
       ]),
     },
     {
+      id: 'agentes',
+      title: 'Agentes de IA no WhatsApp com o DeskFlow',
+      intro: `Além do apoio ao atendente, o VipDesk tem agentes de IA que conversam com o cliente no
+        WhatsApp e executam ações, montados no <a href="/deskflow/">DeskFlow</a>, o construtor visual de
+        fluxos da plataforma.`,
+      content: cards([
+        { title: 'Conversa com instruções suas', text: 'Você escreve o que o agente faz, o tom e os limites. Ele responde ao cliente seguindo essas instruções e o histórico recente da conversa.' },
+        { title: 'Ferramentas em vez de só texto', text: 'O agente busca na base de conhecimento da empresa, consulta uma API, cria o negócio no CRM, agenda um horário, gera link de pagamento ou aplica tags.' },
+        { title: 'Transferência para gente', text: 'Quando o assunto sai do que ele resolve, o agente transfere para o departamento certo, e o atendente recebe a conversa com o contexto.' },
+        { title: 'Dentro de um fluxo', text: 'O agente é um bloco do fluxo: antes dele podem vir menus e validações determinísticas; depois, ações no VipDesk. Você usa a chave de API do seu provedor de IA.' },
+      ]),
+    },
+    {
       title: 'IA junto com as automações',
       content: html`<div class="texto">
         <p>A inteligência artificial complementa as regras da plataforma. As
@@ -80,14 +93,25 @@ export default landingPage({
   faqs: [
     {
       q: 'A IA responde sozinha aos clientes?',
-      a: `<p>No VipDesk, a IA atua como apoio à equipe: ela sugere respostas, e o atendente revisa
-        e decide o que enviar.</p>`,
+      a: `<p>Depende de como você configura. No apoio ao atendente, a IA sugere respostas e a pessoa
+        decide o que enviar. Em um fluxo do DeskFlow, um agente de IA pode responder diretamente ao
+        cliente no WhatsApp, seguindo as suas instruções, e transferir para a equipe quando o assunto
+        sai do que ele resolve.</p>`,
     },
     {
       q: 'O VipDesk tem chatbot?',
-      a: `<p>O foco da inteligência artificial do VipDesk é apoiar os atendentes na triagem, nos
-        resumos, nas sugestões de resposta e na classificação de oportunidades. Se você precisa de
-        um fluxo específico de automação, apresente o cenário ao time comercial na demonstração.</p>`,
+      a: `<p>Sim. O DeskFlow, construtor visual de fluxos do VipDesk, monta o chatbot do WhatsApp
+        com menus, captura de dados, consultas a outros sistemas e agentes de IA, e define quando a
+        conversa passa para um atendente. Conheça o <a href="/deskflow/">DeskFlow</a> e veja
+        <a href="/blog/chatbot-whatsapp-sem-programar/">como criar um chatbot para WhatsApp sem
+        programar</a>.</p>`,
+    },
+    {
+      q: 'Qual a diferença entre a IA de apoio e o agente de IA?',
+      a: `<p>A IA de apoio trabalha para o atendente: resume, sugere e classifica, e a pessoa decide
+        o que enviar. O agente de IA conversa diretamente com o cliente no WhatsApp, dentro de um
+        fluxo do DeskFlow, com instruções, ferramentas e um ponto de transferência para humanos. Os
+        dois podem conviver na mesma operação.</p>`,
     },
     {
       q: 'A IA substitui atendentes?',
@@ -100,7 +124,8 @@ export default landingPage({
         entenda rapidamente o que já foi falado, sem ler todo o histórico.</p>`,
     },
   ],
-  related: ['/automacao-atendimento/', '/sistema-atendimento-whatsapp/', '/crm-whatsapp/'],
+  related: ['/deskflow/', '/automacao-atendimento/', '/sistema-atendimento-whatsapp/'],
+  posts: ['/blog/agente-de-ia-no-whatsapp/'],
   cta: {
     title: 'Veja a IA ajudando sua equipe',
     text: 'Agende uma demonstração e veja resumos e sugestões de resposta em conversas parecidas com as da sua operação.',

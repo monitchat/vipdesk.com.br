@@ -15,16 +15,17 @@ const ctas = (location) => html`<div class="acoes-inline">${demoButton(location,
 const page = landingPage({
   lang,
   path: '/en/deskflow/',
-  title: 'DeskFlow: Visual Customer Service Flow Builder | VipDesk',
+  title: 'DeskFlow: WhatsApp Flow Automation and AI | VipDesk',
   description:
-    'Build customer service and CRM workflows in VipDesk’s visual editor: triggers, conditions, ticket and pipeline actions, API integrations and AI agents.',
-  h1: 'DeskFlow: VipDesk’s visual flow builder',
-  lead: `Drag blocks, connect steps and automate whole customer service, CRM and integration processes
-    without writing code. DeskFlow is part of VipDesk and opens inside the platform.`,
+    'WhatsApp flow automation with DeskFlow, VipDesk’s visual editor: a chatbot with menus, AI agents, conditions, CRM actions and API integrations, no code.',
+  h1: 'DeskFlow: WhatsApp flow automation and AI, without coding',
+  lead: `Build your WhatsApp chatbot and the processes around it in VipDesk’s visual flow builder: menus,
+    data capture, AI agents, lookups in other systems and actions in the CRM and on tickets, with a
+    hand-off to your team when a person is needed. No code required.`,
   sections: [
     {
       id: 'editor',
-      title: 'A visual editor to design your customer service',
+      title: 'A visual editor to automate WhatsApp flows',
       intro: `Each flow is a diagram: blocks are the steps (send a message, ask a question, query a
         system, create a deal) and arrows are the transitions, with or without a condition. What is on
         the canvas is exactly what runs on your channels.`,
@@ -124,8 +125,8 @@ const page = landingPage({
     },
     {
       id: 'ai',
-      title: 'Artificial intelligence inside the flow',
-      intro: 'AI goes where it makes a difference, with a deterministic conversation around it. You use your own provider’s API key (OpenAI, Google Gemini or Anthropic).',
+      title: 'AI on WhatsApp: agents that talk and take action',
+      intro: 'An AI agent on WhatsApp talks to the customer, looks up data and takes action within the limits you set in the flow. You use your own provider’s API key (OpenAI, Google Gemini or Anthropic).',
       content: cards([
         { title: 'AI agent with tools', text: 'A free-conversation block with your instructions and tools it can call: query an API, search the knowledge base, create a deal, apply a tag, book an appointment, generate a payment link or hand off to a human.' },
         { title: 'Intent classification', text: 'The AI routing block reads the message and picks one of the outputs you defined (“duplicate invoice”, “support”, “cancel”), with a fallback reply.' },
@@ -135,7 +136,7 @@ const page = landingPage({
     },
     {
       id: 'examples',
-      title: 'Example flows',
+      title: 'Examples of WhatsApp flow automation',
       intro: 'Three flows built only with the blocks described on this page.',
       content: html`
         ${steps([
@@ -181,6 +182,25 @@ const page = landingPage({
         same login. Flows act on the channels, tickets, CRM and calendar of your account.</p>`,
     },
     {
+      q: 'Can I build a WhatsApp chatbot with DeskFlow?',
+      a: `<p>Yes. The flow starts when a message arrives on a WhatsApp number connected to VipDesk and
+        replies on the same channel: menus with options, buttons and lists, data capture, lookups in
+        other systems and, when a person is needed, a transfer to the right department with the
+        history. The chatbot and <a href="/en/whatsapp-customer-service/">human customer service</a>
+        share the same queue. See the step by step in
+        <a href="/en/blog/whatsapp-chatbot-without-coding/">how to build a WhatsApp chatbot without
+        coding</a>.</p>`,
+    },
+    {
+      q: 'How does AI work on WhatsApp?',
+      a: `<p>In two ways. The AI routing block understands what the customer wrote and picks a path in
+        the flow. The AI agent talks freely following your instructions and calls tools: search the
+        knowledge base, query an API, create a CRM deal, book an appointment or hand off to an agent.
+        The AI uses the API key of the provider your company chooses. More in
+        <a href="/en/blog/ai-agent-for-whatsapp/">AI agent for WhatsApp: what it does and when to use
+        it</a>.</p>`,
+    },
+    {
       q: 'Do I need to know how to code?',
       a: `<p>No. Flows are built by dragging and configuring blocks. Variables and conditions use a simple
         syntax with suggestions as you type. Developers can optionally create custom blocks in Python.</p>`,
@@ -218,7 +238,7 @@ const page = landingPage({
     },
   ],
   related: ['/en/customer-service-automation/', '/en/whatsapp-crm/', '/en/ai-customer-service/'],
-  posts: ['/en/blog/connect-customer-service-and-sales-pipeline/'],
+  posts: ['/en/blog/whatsapp-chatbot-without-coding/', '/en/blog/ai-agent-for-whatsapp/', '/en/blog/connect-customer-service-and-sales-pipeline/'],
   cta: {
     title: 'See a flow built for your operation',
     text: 'In the demo, we design one of your team’s real processes with you in DeskFlow, from the trigger to the action in the CRM or on the ticket.',

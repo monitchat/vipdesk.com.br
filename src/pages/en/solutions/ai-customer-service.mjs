@@ -10,9 +10,9 @@ const cards = (items) => cardsIn(items, 'en');
 export default landingPage({
   lang: 'en',
   path: '/en/ai-customer-service/',
-  title: 'AI for Customer Service, with Agents in Control | VipDesk',
+  title: 'AI for Customer Service and WhatsApp | VipDesk',
   description:
-    'Use AI to support triage, summarize conversations, suggest replies and classify opportunities in VipDesk, while your team makes the final call.',
+    'AI in VipDesk: triage, summaries and reply suggestions for your team, plus AI agents on WhatsApp that talk to customers, query systems and hand off to humans.',
   h1: 'AI for customer service, with your agents in control',
   lead: `VipDesk's AI speeds up your team's work: it supports triage, summarizes long conversations,
     suggests replies and helps classify opportunities. Your agent still decides what is sent to the
@@ -64,6 +64,18 @@ export default landingPage({
       ]),
     },
     {
+      id: 'agents',
+      title: 'AI agents on WhatsApp with DeskFlow',
+      intro: `Beyond assisting agents, VipDesk has AI agents that talk to customers on WhatsApp and take
+        action, built in <a href="/en/deskflow/">DeskFlow</a>, the platform’s visual flow builder.`,
+      content: cards([
+        { title: 'Conversation with your instructions', text: 'You write what the agent does, its tone and its limits. It replies to the customer following those instructions and the recent conversation history.' },
+        { title: 'Tools, not just text', text: 'The agent searches your company’s knowledge base, queries an API, creates the CRM deal, books an appointment, generates a payment link or applies tags.' },
+        { title: 'Hand-off to a person', text: 'When the topic goes beyond what it can solve, the agent transfers to the right department, and the human agent receives the conversation with context.' },
+        { title: 'Inside a flow', text: 'The agent is a block in the flow: deterministic menus and validations can come before it, and VipDesk actions after it. You use your own AI provider’s API key.' },
+      ]),
+    },
+    {
       title: 'AI alongside automations',
       content: html`<div class="texto">
         <p>AI complements the platform's rules. <a href="/en/customer-service-automation/">Automations</a>
@@ -79,14 +91,25 @@ export default landingPage({
   faqs: [
     {
       q: 'Does the AI reply to customers on its own?',
-      a: `<p>In VipDesk, AI works as support for your team: it suggests replies, and the agent reviews
-        them and decides what to send.</p>`,
+      a: `<p>It depends on how you set it up. As assistance, the AI suggests replies and the person
+        decides what to send. In a DeskFlow flow, an AI agent can reply directly to the customer on
+        WhatsApp, following your instructions, and hand off to your team when the topic goes beyond
+        what it can solve.</p>`,
     },
     {
       q: 'Does VipDesk have a chatbot?',
-      a: `<p>The focus of VipDesk's AI is helping agents with triage, summaries, reply suggestions and
-        opportunity classification. If you need a specific automated flow, walk our sales team through
-        your scenario during the demo.</p>`,
+      a: `<p>Yes. DeskFlow, VipDesk’s visual flow builder, builds the WhatsApp chatbot with menus,
+        data capture, lookups in other systems and AI agents, and you define when the conversation
+        goes to a human agent. Discover <a href="/en/deskflow/">DeskFlow</a> and see
+        <a href="/en/blog/whatsapp-chatbot-without-coding/">how to build a WhatsApp chatbot without
+        coding</a>.</p>`,
+    },
+    {
+      q: 'What is the difference between assistive AI and an AI agent?',
+      a: `<p>Assistive AI works for the agent: it summarizes, suggests and classifies, and the person
+        decides what to send. An AI agent talks directly to the customer on WhatsApp inside a
+        DeskFlow flow, with instructions, tools and a hand-off point to humans. Both can coexist in the
+        same operation.</p>`,
     },
     {
       q: 'Does AI replace customer service agents?',
@@ -100,7 +123,8 @@ export default landingPage({
         history.</p>`,
     },
   ],
-  related: ['/en/customer-service-automation/', '/en/whatsapp-customer-service/', '/en/whatsapp-crm/'],
+  related: ['/en/deskflow/', '/en/customer-service-automation/', '/en/whatsapp-customer-service/'],
+  posts: ['/en/blog/ai-agent-for-whatsapp/'],
   cta: {
     title: 'See AI helping your team',
     text: 'Book a demo and see summaries and reply suggestions on conversations similar to yours.',

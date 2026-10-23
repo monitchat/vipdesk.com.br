@@ -74,7 +74,7 @@ const INDEX = {
   pt: {
     title: 'Blog VipDesk: Atendimento, WhatsApp e Vendas',
     description:
-      'Guias práticos sobre atendimento pelo WhatsApp, omnichannel, CRM, automação e operação de equipes de atendimento e vendas.',
+      'Guias práticos sobre atendimento pelo WhatsApp, chatbots e IA, omnichannel, CRM, automação e operação de equipes de atendimento e vendas.',
     h1: 'Blog do VipDesk',
     eyebrow: 'Conteúdo',
     lead: 'Guias práticos para organizar o atendimento, conectar a equipe comercial e usar melhor o WhatsApp e os outros canais da sua empresa.',
@@ -82,7 +82,7 @@ const INDEX = {
   en: {
     title: 'VipDesk Blog: Customer Service, WhatsApp and Sales',
     description:
-      'Practical guides on WhatsApp customer service, omnichannel support, CRM, automation and running customer service and sales teams.',
+      'Practical guides on WhatsApp customer service, chatbots and AI, omnichannel support, CRM, automation and running customer service and sales teams.',
     h1: 'The VipDesk Blog',
     eyebrow: 'Resources',
     lead: 'Practical guides to organize customer service, connect your sales team and get more out of WhatsApp and your other channels.',

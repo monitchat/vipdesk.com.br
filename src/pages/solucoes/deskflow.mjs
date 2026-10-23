@@ -17,16 +17,17 @@ const ctas = (location) => html`<div class="acoes-inline">${demoButton(location,
 const page = landingPage({
   lang,
   path: '/deskflow/',
-  title: 'DeskFlow: Construtor Visual de Fluxos de Atendimento | VipDesk',
+  title: 'DeskFlow: Automação de Fluxos e IA no WhatsApp | VipDesk',
   description:
-    'Monte workflows de atendimento e CRM no editor visual do VipDesk: gatilhos, condições, ações nos chamados e no funil, integração via API e agentes de IA.',
-  h1: 'DeskFlow: o construtor visual de fluxos do VipDesk',
-  lead: `Arraste blocos, conecte etapas e automatize processos inteiros de atendimento, CRM e integrações
-    sem escrever código. O DeskFlow faz parte do VipDesk e abre dentro da plataforma.`,
+    'Automação de fluxos no WhatsApp com o DeskFlow, o editor visual do VipDesk: chatbot com menus, agentes de IA, condições, ações no CRM e integração via API.',
+  h1: 'DeskFlow: automação de fluxos e IA no WhatsApp, sem programar',
+  lead: `Monte o chatbot do WhatsApp e os processos em volta dele no construtor visual de fluxos do VipDesk:
+    menus, captura de dados, agentes de IA, consultas a outros sistemas e ações no CRM e nos chamados,
+    com transferência para a equipe quando precisa de gente. Sem escrever código.`,
   sections: [
     {
       id: 'editor',
-      title: 'Um editor visual para desenhar o atendimento',
+      title: 'Um editor visual para automatizar fluxos no WhatsApp',
       intro: `Cada fluxo é um diagrama: os blocos são as etapas (enviar mensagem, perguntar, consultar um
         sistema, criar um negócio) e as setas são as transições, com ou sem condição. O que está no
         canvas é exatamente o que roda nos canais.`,
@@ -126,8 +127,8 @@ const page = landingPage({
     },
     {
       id: 'ia',
-      title: 'Inteligência artificial dentro do fluxo',
-      intro: 'A IA entra onde faz diferença, com a conversa determinística em volta. Você usa a chave de API do seu provedor (OpenAI, Google Gemini ou Anthropic).',
+      title: 'IA no WhatsApp: agentes que conversam e executam ações',
+      intro: 'Um agente de IA no WhatsApp conversa com o cliente, consulta dados e executa ações, dentro dos limites que você define no fluxo. Você usa a chave de API do seu provedor (OpenAI, Google Gemini ou Anthropic).',
       content: cards([
         { title: 'Agente de IA com ferramentas', text: 'Um bloco de conversa livre com instruções suas e ferramentas que ele pode acionar: consultar uma API, buscar na base de conhecimento, criar negócio, aplicar tag, agendar, gerar link de pagamento ou transferir para um humano.' },
         { title: 'Classificação de intenção', text: 'O bloco de roteamento por IA lê a mensagem e escolhe entre as saídas que você definiu (“2ª via”, “suporte”, “cancelar”), com resposta de fallback.' },
@@ -137,7 +138,7 @@ const page = landingPage({
     },
     {
       id: 'exemplos',
-      title: 'Exemplos de fluxos',
+      title: 'Exemplos de automação de fluxo no WhatsApp',
       intro: 'Três fluxos montados só com os blocos descritos nesta página.',
       content: html`
         ${steps([
@@ -183,6 +184,25 @@ const page = landingPage({
         sua conta.</p>`,
     },
     {
+      q: 'Dá para criar um chatbot para WhatsApp com o DeskFlow?',
+      a: `<p>Sim. O fluxo começa quando chega uma mensagem no WhatsApp conectado ao VipDesk e responde
+        no mesmo canal: menus com opções, botões e listas, captura de dados, consultas a outros
+        sistemas e, quando precisa de gente, transferência para o departamento certo com o
+        histórico. O chatbot e o <a href="/sistema-atendimento-whatsapp/">atendimento humano</a>
+        ficam na mesma fila. Veja o passo a passo em
+        <a href="/blog/chatbot-whatsapp-sem-programar/">como criar um chatbot para WhatsApp sem
+        programar</a>.</p>`,
+    },
+    {
+      q: 'Como funciona a IA no WhatsApp?',
+      a: `<p>De duas formas. O bloco de roteamento por IA entende o que o cliente escreveu e escolhe
+        um caminho do fluxo. O agente de IA conversa livremente seguindo as suas instruções e aciona
+        ferramentas: buscar na base de conhecimento, consultar uma API, criar negócio no CRM, agendar
+        ou transferir para um atendente. A IA usa a chave do provedor escolhido pela sua empresa. Mais
+        em <a href="/blog/agente-de-ia-no-whatsapp/">agente de IA no WhatsApp: o que faz e quando
+        usar</a>.</p>`,
+    },
+    {
       q: 'Preciso saber programar para usar?',
       a: `<p>Não. Os fluxos são montados arrastando e configurando blocos. Variáveis e condições usam uma
         sintaxe simples, com sugestões ao digitar. Quem programa pode, opcionalmente, criar blocos
@@ -221,7 +241,7 @@ const page = landingPage({
     },
   ],
   related: ['/automacao-atendimento/', '/crm-whatsapp/', '/inteligencia-artificial-atendimento/'],
-  posts: ['/blog/integrar-atendimento-e-funil-de-vendas/'],
+  posts: ['/blog/chatbot-whatsapp-sem-programar/', '/blog/agente-de-ia-no-whatsapp/', '/blog/integrar-atendimento-e-funil-de-vendas/'],
   cta: {
     title: 'Veja um fluxo montado para a sua operação',
     text: 'Na demonstração, desenhamos com você um processo real da sua equipe no DeskFlow, do gatilho à ação no CRM ou no chamado.',

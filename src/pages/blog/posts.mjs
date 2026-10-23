@@ -6,15 +6,19 @@ import { ui } from '../../i18n.mjs';
 import whatsappVariosAtendentes from './artigos/whatsapp-varios-atendentes.mjs';
 import tempoPrimeiraResposta from './artigos/tempo-de-primeira-resposta.mjs';
 import atendimentoFunil from './artigos/integrar-atendimento-e-funil-de-vendas.mjs';
+import chatbotWhatsapp from './artigos/chatbot-whatsapp-sem-programar.mjs';
+import agenteIaWhatsapp from './artigos/agente-de-ia-no-whatsapp.mjs';
 import whatsappTeamInbox from './en/whatsapp-team-inbox.mjs';
 import firstResponseTime from './en/first-response-time.mjs';
 import supportAndSales from './en/connect-customer-service-and-sales-pipeline.mjs';
+import whatsappChatbot from './en/whatsapp-chatbot-without-coding.mjs';
+import aiAgentWhatsapp from './en/ai-agent-for-whatsapp.mjs';
 
 const register = (lang, posts) => posts
   .map((p) => ({ ...p, lang, path: `${ui(lang).paths.blog}${p.slug}/` }))
   .sort((a, b) => (a.published < b.published ? 1 : a.published > b.published ? -1 : 0));
 
 export const POSTS = {
-  pt: register('pt', [whatsappVariosAtendentes, tempoPrimeiraResposta, atendimentoFunil]),
-  en: register('en', [whatsappTeamInbox, firstResponseTime, supportAndSales]),
+  pt: register('pt', [chatbotWhatsapp, agenteIaWhatsapp, whatsappVariosAtendentes, tempoPrimeiraResposta, atendimentoFunil]),
+  en: register('en', [whatsappChatbot, aiAgentWhatsapp, whatsappTeamInbox, firstResponseTime, supportAndSales]),
 };
