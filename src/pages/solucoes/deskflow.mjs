@@ -2,6 +2,7 @@
 // Apresenta o DeskFlow como o mecanismo de automações visuais do VipDesk. Só recursos verificados na
 // implementação (deskflow-app e deskflow-api, outubro de 2026). A página /automacao-atendimento/
 // continua focada nos problemas comerciais e nas regras nativas (SLA, follow-ups, distribuição).
+import { SITE } from '../../config.mjs';
 import { landingPage } from '../../lib/landing.mjs';
 import { html } from '../../lib/html.mjs';
 import { list, steps, cards as cardsIn, demoButton, contactButton } from '../../lib/components.mjs';
@@ -173,7 +174,10 @@ const page = landingPage({
       intro: 'Pouco mais de vinte segundos no editor: o fluxo de demonstração, a configuração de um bloco do CRM, a paleta de componentes de atendimento e um agente de IA.',
       content: html`
         ${demoVideo(lang)}
-        <p class="legenda">Gravação do editor com um fluxo de demonstração, sem dados de clientes. O vídeo não tem áudio; as legendas descrevem cada etapa.</p>`,
+        <p class="legenda">Gravação do editor com um fluxo de demonstração, sem dados de clientes. O vídeo não tem áudio; as legendas descrevem cada etapa.</p>
+        <p style="margin-top:16px">Tutoriais completos do DeskFlow e da plataforma estão no
+          <a href="${SITE.youtubeUrl}">canal do VipDesk no YouTube</a> e na
+          <a href="${SITE.helpUrl}">central de ajuda</a>.</p>`,
     },
   ],
   faqs: [

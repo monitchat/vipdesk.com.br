@@ -115,7 +115,8 @@ test('links internos e âncoras apontam para destinos existentes', () => {
 });
 
 test('links externos são apenas destinos conhecidos', () => {
-  const allowed = [/^https:\/\/app\.vipdesk\.com\.br\/?$/, /^https:\/\/developers\.google\.com\//, /^https:\/\/myaccount\.google\.com\//];
+  const allowed = [/^https:\/\/app\.vipdesk\.com\.br\/?$/, /^https:\/\/developers\.google\.com\//, /^https:\/\/myaccount\.google\.com\//,
+    /^https:\/\/vipphone\.vipdesk\.chat\/help$/, /^https:\/\/www\.youtube\.com\/@vipdeskcrm$/];
   for (const p of pages) {
     for (const href of hrefs(p.html).filter((h) => /^https?:/.test(h))) {
       const configured = [SITE.trialUrl, SITE.demoUrl].filter(Boolean);

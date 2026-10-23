@@ -10,7 +10,8 @@ runtime e fica versionado na raiz do repositório (o GitHub Pages continua publi
 
 ```
 src/
-  config.mjs        dados institucionais, URLs, CTAs (inclui trialUrl e demoUrl, pendentes)
+  config.mjs        dados institucionais, URLs, CTAs (inclui trialUrl e demoUrl, pendentes),
+                    helpUrl e youtubeUrl (central de ajuda e canal, no rodapé e na home)
   i18n.mjs          idiomas (pt na raiz, en em /en/) e textos de interface traduzidos
   navigation.mjs    páginas comerciais por idioma (menu, rodapé, cards)
   routes.mjs        todas as páginas, nos dois idiomas; calcula os hreflang

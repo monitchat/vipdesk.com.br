@@ -294,7 +294,10 @@ ${section({
   title: 'Conteúdo para organizar seu atendimento',
   intro: 'Guias práticos do time do VipDesk sobre atendimento, vendas e operação digital.',
   content: html`${cards(POSTS.slice(0, 3).map((p) => ({ title: p.h1, text: p.description, href: p.path, linkLabel: 'Ler artigo' })))}
-    <p style="margin-top:24px"><a href="/blog/">Ver todos os artigos do blog</a></p>`,
+    <p style="margin-top:24px"><a href="/blog/">Ver todos os artigos do blog</a></p>
+    <p style="margin-top:12px">Para quem já usa a plataforma: tutoriais em vídeo no
+      <a href="${SITE.youtubeUrl}">canal do VipDesk no YouTube</a> e passo a passo de cada recurso na
+      <a href="${SITE.helpUrl}">central de ajuda</a>.</p>`,
 })}
 ${ctaBand({
   lang: 'pt',

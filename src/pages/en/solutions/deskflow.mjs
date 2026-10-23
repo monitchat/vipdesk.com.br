@@ -1,5 +1,6 @@
 // Intent: "visual flow builder / visual process automation for customer service and CRM".
 // English counterpart of /deskflow/. Same verified facts as the Portuguese page.
+import { SITE } from '../../../config.mjs';
 import { landingPage } from '../../../lib/landing.mjs';
 import { html } from '../../../lib/html.mjs';
 import { list, steps, cards as cardsIn, demoButton, contactButton } from '../../../lib/components.mjs';
@@ -172,7 +173,10 @@ const page = landingPage({
       intro: 'Just over twenty seconds in the editor: the demo flow, the settings of a CRM block, the customer service component palette and an AI agent.',
       content: html`
         ${demoVideo(lang)}
-        <p class="legenda">Recording of the editor with a demo flow and no customer data. The video has no audio; the captions describe each step. The editor’s interface is in Portuguese.</p>`,
+        <p class="legenda">Recording of the editor with a demo flow and no customer data. The video has no audio; the captions describe each step. The editor’s interface is in Portuguese.</p>
+        <p style="margin-top:16px">Full tutorials for DeskFlow and the platform are on the
+          <a href="${SITE.youtubeUrl}">VipDesk YouTube channel</a> and in the
+          <a href="${SITE.helpUrl}">help center</a> (in Portuguese).</p>`,
     },
   ],
   faqs: [

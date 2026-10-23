@@ -112,6 +112,8 @@ const footer = (page) => {
           <li><a href="${t.paths.home}#recursos">${t.footerFeatures}</a></li>
           <li><a href="${t.paths.home}#agenda">${t.footerCalendar}</a></li>
           <li><a href="${t.paths.blog}">${t.blog}</a></li>
+          <li><a href="${SITE.helpUrl}">${t.help}</a></li>
+          <li><a href="${SITE.youtubeUrl}">${t.youtube}</a></li>
           <li><a href="${SITE.appUrl}" data-cta="app_access" data-cta-local="rodape">${t.appAccess}</a></li>
           ${languageLinks(page).map((l) => html`<li><a href="${l.href}" hreflang="${l.hreflang}" lang="${l.hreflang}">${l.label}</a></li>`)}
         </ul>

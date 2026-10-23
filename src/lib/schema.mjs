@@ -21,6 +21,7 @@ export const organization = () => ({
   },
   taxID: SITE.company.taxId,
   email: SITE.emails.sales,
+  sameAs: [SITE.youtubeUrl],
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${SITE.company.street} — ${SITE.company.district}`,

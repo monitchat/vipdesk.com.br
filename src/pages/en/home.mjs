@@ -272,7 +272,10 @@ ${section({
   title: 'Guides to run better customer service',
   intro: 'Practical guides from the VipDesk team on customer service, sales and digital operations.',
   content: html`${cards(POSTS.en.slice(0, 3).map((p) => ({ title: p.h1, text: p.description, href: p.path, linkLabel: 'Read article' })))}
-    <p style="margin-top:24px"><a href="/en/blog/">See all blog articles</a></p>`,
+    <p style="margin-top:24px"><a href="/en/blog/">See all blog articles</a></p>
+    <p style="margin-top:12px">Already using the platform? Video tutorials on the
+      <a href="${SITE.youtubeUrl}">VipDesk YouTube channel</a> and step-by-step guides in the
+      <a href="${SITE.helpUrl}">help center</a> (both in Portuguese).</p>`,
 })}
 ${ctaBand({
   lang,

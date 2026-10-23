@@ -14,6 +14,9 @@ export const SITE = {
     height: 630,
   },
   appUrl: 'https://app.vipdesk.com.br',
+  // Materiais de apoio ao cliente: central de ajuda e canal no YouTube (rodapé, home e /deskflow/).
+  helpUrl: 'https://vipphone.vipdesk.chat/help',
+  youtubeUrl: 'https://www.youtube.com/@vipdeskcrm',
   // Google Analytics 4 (gtag.js). null desativa a tag em todas as páginas.
   ga4Id: 'G-5L7TXDVM7T',
   // URL pública de cadastro do teste gratuito. Os Termos de Uso preveem teste gratuito
