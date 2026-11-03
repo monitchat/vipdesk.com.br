@@ -193,6 +193,7 @@ ${page.body}
 </main>
 ${footer(page)}
 <script>${SCRIPT}</script>
+${SITE.webchatWidgetUrl ? html`<script async src="${SITE.webchatWidgetUrl}"></script>` : ''}
 </body>
 </html>
 `;

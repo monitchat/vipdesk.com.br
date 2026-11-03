@@ -19,6 +19,8 @@ export const SITE = {
   youtubeUrl: 'https://www.youtube.com/@vipdeskcrm',
   // Google Analytics 4 (gtag.js). null desativa a tag em todas as páginas.
   ga4Id: 'G-5L7TXDVM7T',
+  // Webchat do próprio VipDesk (widget de chat no canto da página). null tira de todas as páginas.
+  webchatWidgetUrl: 'https://alb.monitchat.com/widget/wgt_BO3T4Xo14IHjf6vL5EFBH656OSTy.js',
   // URL pública de cadastro do teste gratuito. Os Termos de Uso preveem teste gratuito
   // por prazo determinado, mas a rota de cadastro não pôde ser verificada a partir deste
   // repositório. Enquanto for null, o CTA "Experimentar grátis" não é exibido.
