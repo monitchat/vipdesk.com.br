@@ -1,12 +1,12 @@
 # Google Analytics 4 — VipDesk
 
-Instalado em 13/10/2026.
+Instalado em 13/10/2026. Documentação revisada em 03/11/2026; ver também [monitoramento de SEO](seo-monitoring.md).
 
 ## O que está instalado
 
 - Propriedade GA4: **`G-5L7TXDVM7T`** (configurada em `src/config.mjs` → `SITE.ga4Id`).
 - Tag gtag.js padrão do Google, igual à fornecida pelo painel do GA4, logo após o `<meta viewport>`
-  de **todas** as páginas: as 13 em português, as 13 em inglês e a 404.
+  de **todas** as páginas: 16 em português, 16 em inglês e a 404.
 - Carregamento assíncrono (`async`): não bloqueia a renderização da página.
 - Medição automática do GA4: `page_view` e, se a "Medição otimizada" estiver ligada na
   propriedade, rolagem, cliques de saída etc.
@@ -18,8 +18,12 @@ Instalado em 13/10/2026.
 | `cta_location` | `hero`, `faixa_final`, `topo`, `menu_movel`, `rodape`, `artigo`, `blog`, `*_email`; na home e em /deskflow/: `deskflow_home`, `deskflow_editor`, `deskflow_integracoes`, `deskflow_exemplos` |
 | `link_url` | destino do botão |
 
-`cta_click` é um **clique** (intenção). Um clique em "Agendar demonstração" abre o e-mail, mas
-não garante que ele foi enviado. Não use esse evento como "lead".
+`cta_click` é um **clique** (intenção). Em português, "Agendar demonstração" leva ao formulário; em inglês, abre o e-mail.
+O clique não garante envio ou agendamento. Não use esse evento como "lead".
+
+O evento existente **`generate_lead`** observa a confirmação `.vd-msg-ok` após submit do
+formulário e inclui `form_id` e `lead_source`. Os testes verificam falha, sucesso e reenvio
+com widget simulado; a confirmação real do serviço precisa ser validada após publicação.
 
 ## Configurar no painel do GA4 (manual)
 
@@ -41,8 +45,8 @@ não garante que ele foi enviado. Não use esse evento como "lead".
    "Agendar demonstração": deve aparecer `cta_click` com `cta_type = demo_request`.
 3. Repita em https://vipdesk.com.br/en/.
 
-Isso **não foi verificado em produção** a partir deste ambiente: `googletagmanager.com` e o
-domínio do site são bloqueados pela política de rede.
+O recebimento dos eventos na propriedade GA4 **não foi verificado**: não houve acesso ao painel.
+A auditoria HTTP pública de 03/11/2026 conseguiu ler o site; isso não comprova coleta no GA4.
 
 ## Testes automatizados
 
@@ -67,7 +71,7 @@ domínio do site são bloqueados pela política de rede.
 
 ## Impacto em performance
 
-O gtag.js é carregado de forma assíncrona e não bloqueia a renderização. O efeito exato no
-Lighthouse **não foi medido**, porque o script do Google é inacessível neste ambiente. É esperado
-algum custo de JavaScript de terceiros (tipicamente dezenas de KB e algum tempo de CPU),
-principalmente em celulares. Meça no PageSpeed Insights depois do deploy.
+O gtag.js é carregado de forma assíncrona. As medições de 03/11/2026 bloqueiam analytics
+para não gerar visitas sintéticas; portanto não medem seu custo real. Veja
+[performance de SEO](seo-performance.md) para LCP, CLS, bytes e limites dos ensaios.
+Conferir dados de campo no Search Console/CrUX após publicação.

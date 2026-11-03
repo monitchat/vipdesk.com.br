@@ -40,7 +40,7 @@ async function request(url, { method = 'GET' } = {}) {
   for (let hop = 0; hop < 10; hop++) {
     let res;
     try {
-      res = await fetch(current, { method, redirect: 'manual', headers: { 'user-agent': UA } });
+      res = await fetch(current, { method, redirect: 'manual', signal: AbortSignal.timeout(15000), headers: { 'user-agent': UA } });
     } catch (e) {
       return { url, chain, error: String(e.cause?.code || e.message) };
     }

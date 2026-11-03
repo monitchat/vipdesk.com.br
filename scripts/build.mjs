@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { SITE, absoluteUrl } from '../src/config.mjs';
 import { PAGES, LASTMOD, outputFile } from '../src/routes.mjs';
 import { renderPage } from '../src/lib/layout.mjs';
+import { clientAsset } from '../src/lib/client-asset.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK = process.argv.includes('--check');
@@ -24,13 +25,24 @@ ${indexable.map((p) => `  <url>
 
 // Não há área privada neste domínio (o app fica em app.vipdesk.com.br, com robots próprio).
 // robots.txt não é mecanismo de segurança; a 404 usa noindex, não bloqueio.
-const robots = `User-agent: *
+// GPTBot continua sujeito ao grupo wildcard original: nenhuma mudança de treinamento.
+const robots = `User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: *
 Allow: /
 
 Sitemap: ${SITE.origin}/sitemap.xml
 `;
 
 const files = new Map([
+  [clientAsset.path.slice(1), clientAsset.content],
   ...PAGES.map((p) => [outputFile(p), renderPage(p)]),
   ['sitemap.xml', sitemap],
   ['robots.txt', robots],
@@ -43,6 +55,7 @@ for (const p of PAGES) {
 }
 
 let stale = 0;
+// Preservar hashes anteriores: HTML ainda em cache pode referenciá-los após o deploy.
 for (const [rel, content] of files) {
   const abs = join(ROOT, rel);
   if (CHECK) {

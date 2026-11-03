@@ -49,13 +49,13 @@ export const editorImage = (lang, { eager = false } = {}) => html`
 export const dialogImage = (lang) => html`
 <picture>
   <source type="image/webp" srcset="${DIR}/node-editor-760.webp">
-  <img src="${DIR}/node-editor-760.jpg" width="760" height="1231" alt="${TEXT[lang].dialogAlt}" loading="lazy">
+  <img src="${DIR}/node-editor-760.jpg" width="760" height="1231" alt="${TEXT[lang].dialogAlt}" loading="lazy" decoding="async">
 </picture>`;
 
 export const paletteImage = (lang) => html`
 <picture>
   <source type="image/webp" srcset="${DIR}/palette-454.webp">
-  <img src="${DIR}/palette-454.jpg" width="454" height="1400" alt="${TEXT[lang].paletteAlt}" loading="lazy">
+  <img src="${DIR}/palette-454.jpg" width="454" height="1400" alt="${TEXT[lang].paletteAlt}" loading="lazy" decoding="async">
 </picture>`;
 
 // Vídeo curto (22 s, sem áudio). preload="none": só baixa quando o visitante dá play.

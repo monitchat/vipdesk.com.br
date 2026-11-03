@@ -69,6 +69,34 @@ Documentação de SEO: [`docs/SEO-PRODUCTION-VALIDATION.md`](docs/SEO-PRODUCTION
 [`docs/SEO-AUDIT.md`](docs/SEO-AUDIT.md),
 [`docs/SEO-STRATEGY.md`](docs/SEO-STRATEGY.md), [`docs/SEO-VALIDATION.md`](docs/SEO-VALIDATION.md).
 
+## SEO, GEO e AEO — revisão de 03/11/2026
+
+A implementação preserva as 32 páginas indexáveis, a 404, o visual, o blog e as integrações.
+Veja [relatório final](docs/seo-implementation-report.md), [auditoria inicial](docs/seo-audit.md),
+[plano de 15 pautas](docs/seo-content-plan.md), [checklist Cloudflare](docs/cloudflare-seo-checklist.md)
+e [monitoramento](docs/seo-monitoring.md). A documentação histórica acima descreve versões anteriores.
+
+`src/client.js` contém as interações compartilhadas; o build gera `assets/site-<hash>.js` e
+referencia o mesmo arquivo com `defer` em todas as páginas. Preserve hashes anteriores durante
+rollout e expiração do cache de HTML. Não altere arquivos gerados manualmente.
+
+Artigos novos podem usar `status: 'draft'` no registro para ficarem fora de rotas, cards e sitemap.
+Datas e campos obrigatórios são validados no build. O estado padrão continua sendo publicado.
+Retirar artigo já publicado exige planejar a remoção do HTML gerado e a resposta HTTP correspondente.
+
+Para diagnóstico reproduzível de performance, depois de `npm run serve`:
+
+```bash
+node scripts/measure.mjs --isolated http://localhost:4173/ http://localhost:4173/deskflow/
+```
+
+Sem `--isolated`, widgets externos participam da medição; analytics é sempre bloqueado.
+O resultado de interação sintética não é INP de campo. Veja [medição](docs/seo-performance.md).
+
+Se o Chromium padrão não estiver instalado, use `npm exec playwright install chromium`.
+Como alternativa de ambiente, testes e medição aceitam `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`
+com o caminho de um Chromium instalado. O relatório informa a versão usada na validação.
+
 ## Publicar
 
 1. Suba este diretório num repositório **público** (Pages gratuito exige público).

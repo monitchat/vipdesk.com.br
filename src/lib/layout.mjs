@@ -1,5 +1,6 @@
 // Documento HTML completo: <head> com SEO, cabeçalho, rodapé e script mínimo.
 import { readFileSync } from 'node:fs';
+import { clientAsset } from './client-asset.mjs';
 import { SITE, absoluteUrl } from '../config.mjs';
 import { SOLUTIONS } from '../navigation.mjs';
 import { LOCALES, DEFAULT_FOR_UNMATCHED, ui } from '../i18n.mjs';
@@ -16,14 +17,7 @@ const minifyCss = (css) =>
 
 const CSS = minifyCss(readFileSync(new URL('../styles.css', import.meta.url), 'utf8'));
 
-// Fecha menus abertos ao clicar fora/Esc e envia cliques de CTA ao Google Analytics como o evento
-// `cta_click` (parâmetros cta_type e cta_location). É um clique (intenção), não um lead confirmado.
-// Botão com `data-form-msg` escreve a mensagem no campo do formulário de contato (widget carrega
-// async: tenta por até 10 s). Não apaga o que o visitante digitou — só troca vazio ou a mensagem anterior.
-// Formulário de contato ([data-lead-form]): o widget não emite evento, então o envio aceito pelo servidor
-// é detectado pela mensagem de sucesso (.vd-msg-ok) e vira `generate_lead` no GA4. A mensagem anterior é
-// escondida a cada envio, para um reenvio contar só quando o servidor confirmar de novo.
-const SCRIPT = `(function(){document.documentElement.classList.add('js');var m=function(){return document.querySelectorAll('details.menu[open]')};document.addEventListener('click',function(e){m().forEach(function(d){if(!d.contains(e.target))d.removeAttribute('open')});var a=e.target.closest&&e.target.closest('[data-cta]');if(a&&typeof window.gtag==='function'){window.gtag('event','cta_click',{cta_type:a.getAttribute('data-cta'),cta_location:a.getAttribute('data-cta-local')||'',link_url:a.href})}var f=e.target.closest&&e.target.closest('[data-form-msg]');if(f){var msg=f.getAttribute('data-form-msg'),fld=f.getAttribute('data-form-field'),prev=window.__vdFormMsg,n=0;window.__vdFormMsg=msg;window.__vdFormCta=f.getAttribute('data-cta');(function t(){var x=document.querySelector('#contato [name="'+fld+'"]');if(x){if(!x.value||x.value===prev){x.value=msg;x.dispatchEvent(new Event('input',{bubbles:true}))}}else if(n++<40)setTimeout(t,250)})()}});document.addEventListener('keydown',function(e){if(e.key==='Escape')m().forEach(function(d){d.removeAttribute('open');var s=d.querySelector('summary');if(s)s.focus()})});var lf=document.querySelector('[data-lead-form]');if(lf){var mount=lf.firstElementChild,pend=false;setTimeout(function(){if(mount&&!mount.firstChild)lf.classList.add('sem-form')},10000);lf.addEventListener('submit',function(){var o=lf.querySelector('.vd-msg');if(o)o.style.display='none';pend=true},true);if(window.MutationObserver)new MutationObserver(function(){var ok=lf.querySelector('.vd-msg-ok');if(pend&&ok&&ok.style.display!=='none'){pend=false;if(typeof window.gtag==='function')window.gtag('event','generate_lead',{form_id:lf.getAttribute('data-lead-form'),lead_source:window.__vdFormCta||'direto'})}}).observe(lf,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style']})}})();`;
+// Interações e eventos comerciais preservados em src/client.js, compartilhado com defer.
 
 // Tag do Google Analytics 4, exatamente como fornecida pelo Google (gtag.js), carregada de forma
 // assíncrona: não bloqueia a renderização.
@@ -177,6 +171,10 @@ ${alternates.filter((a) => a.lang !== page.lang).map((a) => html`<meta property=
 ${page.article ? html`<meta property="article:published_time" content="${page.article.published}">
 ${page.article.modified ? html`<meta property="article:modified_time" content="${page.article.modified}">` : ''}` : ''}
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(page.ogTitle || page.title)}">
+<meta name="twitter:description" content="${esc(page.ogDescription || page.description)}">
+<meta name="twitter:image" content="${ogImage}">
+<meta name="twitter:image:alt" content="${esc(og.alt)}">
 <link rel="preload" href="/assets/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>${CSS}</style>
 ${page.indexable === false ? '' : html`<script type="application/ld+json">${jsonForScript(graph(nodes))}</script>`}
@@ -192,7 +190,7 @@ ${header(page)}
 ${page.body}
 </main>
 ${footer(page)}
-<script>${SCRIPT}</script>
+<script defer src="${clientAsset.path}"></script>
 ${SITE.webchatWidgetUrl ? html`<script async src="${SITE.webchatWidgetUrl}"></script>` : ''}
 </body>
 </html>

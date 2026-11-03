@@ -34,6 +34,9 @@ const TYPES = {
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
   '.svg': 'image/svg+xml',
+  '.vtt': 'text/vtt; charset=utf-8',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
 };
 
 function jekyllExcludes() {

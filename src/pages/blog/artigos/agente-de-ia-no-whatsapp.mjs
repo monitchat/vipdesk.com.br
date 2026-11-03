@@ -8,6 +8,7 @@ export default {
     'O que é um agente de IA no WhatsApp, como ele difere de um chatbot de menu e da IA de apoio, quando vale usar e como manter a conversa sob controle.',
   h1: 'Agente de IA no WhatsApp: o que ele faz e quando usar',
   published: '2026-10-23',
+  modified: '2026-11-03',
   solutions: ['/deskflow/', '/inteligencia-artificial-atendimento/', '/sistema-atendimento-whatsapp/'],
   summary: `um agente de IA no WhatsApp conversa com o cliente seguindo instruções suas e aciona
     ferramentas: consultar dados, criar um negócio, agendar, transferir. Vale usar para dúvidas
@@ -90,6 +91,27 @@ reclamações.</p>
 </ul>
 <p>O resultado é uma operação em que a IA responde o que varia, o fluxo responde o que se
 repete e a equipe recebe o que exige julgamento, com o contexto completo.</p>
+
+<h2>Como avaliar um agente antes de colocá-lo em operação</h2>
+<p>Monte um conjunto pequeno de perguntas reais da operação, removendo dados pessoais. Inclua
+perguntas com resposta na base, perguntas que a base não cobre e pedidos ambíguos. O resultado
+esperado não é responder tudo: é responder com fundamento e encaminhar corretamente o que exige
+uma pessoa ou informação adicional.</p>
+<h3>Um exemplo de limite operacional</h3>
+<p>Num cenário hipotético de orçamento, o agente pode explicar serviços descritos na base e
+coletar informações para uma proposta. Se o cliente pede um desconto fora das condições
+registradas, a resposta esperada é encaminhar a negociação à equipe. Não basta escrever essa
+regra no prompt: as ferramentas disponíveis também precisam limitar as ações permitidas.</p>
+<ul>
+  <li>Confira se a resposta corresponde à versão atual da base de conhecimento.</li>
+  <li>Teste uma solicitação para ignorar instruções ou revelar dados de outra pessoa.</li>
+  <li>Simule uma ferramenta indisponível e confira a transferência.</li>
+  <li>Revise ações executadas, erros e necessidade de intervenção humana.</li>
+</ul>
+<p>Compare o agente com um <a href="/blog/chatbot-whatsapp-sem-programar/">chatbot de fluxo</a>
+para a mesma tarefa. No VipDesk, uma demonstração do <a href="/deskflow/">DeskFlow</a> pode
+ajudar a identificar quais etapas devem ser determinísticas e onde a IA agrega valor.</p>
+
 <p class="destaque">No VipDesk, os agentes de IA são montados no <a href="/deskflow/">DeskFlow</a>
 e trabalham ao lado da <a href="/inteligencia-artificial-atendimento/">IA de apoio ao
 atendente</a>. Na demonstração, mostramos um agente configurado com o seu cenário.</p>

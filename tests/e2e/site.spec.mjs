@@ -2,6 +2,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { PAGES } from '../../src/routes.mjs';
+import { SITE } from '../../src/config.mjs';
 
 const ROUTES = PAGES.filter((p) => p.indexable !== false);
 const ORIGIN = 'https://vipdesk.com.br';
@@ -15,6 +16,26 @@ test.beforeEach(async ({ page }) => {
   await page.route(GA_HOSTS, (route) => (route.request().url().includes('/gtag/js')
     ? route.fulfill({ status: 200, contentType: 'text/javascript', body: '/* gtag.js simulado nos testes */' })
     : route.fulfill({ status: 204, body: '' })));
+  // Fixtures exercitam o contrato dos widgets sem criar leads, chats ou visitas reais.
+  await page.route(SITE.webchatWidgetUrl, (route) => route.fulfill({
+    contentType: 'text/javascript', body: 'window.__vipdeskWebchatLoaded = true;',
+  }));
+  await page.route(FORM_HOSTS, (route) => {
+    if (route.request().url() !== SITE.contactForm.pt.widget) return route.abort();
+    return route.fulfill({ contentType: 'text/javascript', body: `
+      const mount = document.getElementById(document.currentScript.dataset.target);
+      mount.innerHTML = '<form><label>Mensagem<textarea name="mensagem"></textarea></label><button type="submit">Enviar</button><div class="vd-msg" role="status" style="display:none"></div></form>';
+      mount.querySelector('form').addEventListener('submit', event => {
+        event.preventDefault();
+        setTimeout(() => {
+          const msg = mount.querySelector('.vd-msg');
+          msg.className = window.__formShouldFail ? 'vd-msg vd-msg-error' : 'vd-msg vd-msg-ok';
+          msg.textContent = window.__formShouldFail ? 'Falha no envio' : 'Enviado';
+          msg.style.display = 'block';
+        }, 20);
+      });
+    ` });
+  });
 });
 
 test.describe('rotas', () => {
@@ -78,6 +99,21 @@ test.describe('rotas', () => {
     expect(res.status()).toBe(200);
     expect(await res.text()).toContain('Sitemap: https://vipdesk.com.br/sitemap.xml');
   });
+
+  test('bots recebem o mesmo HTML e aliases mantêm canonical limpo', async ({ request }) => {
+    const canonical = '<link rel="canonical" href="https://vipdesk.com.br/crm-whatsapp/">';
+    const normal = await (await request.get('/crm-whatsapp/')).text();
+    for (const agent of ['OAI-SearchBot', 'Googlebot', 'Bingbot']) {
+      const response = await request.get('/crm-whatsapp/', { headers: { 'user-agent': agent } });
+      expect(response.status()).toBe(200);
+      expect(await response.text()).toBe(normal);
+    }
+    for (const path of ['/crm-whatsapp/index.html', '/crm-whatsapp/?utm_source=teste']) {
+      const response = await request.get(path);
+      expect(response.status()).toBe(200);
+      expect(await response.text()).toContain(canonical);
+    }
+  });
 });
 
 test.describe('renderização e qualidade', () => {
@@ -99,12 +135,12 @@ test.describe('renderização e qualidade', () => {
     });
   }
 
-  test('só o Google Analytics e o formulário de contato como terceiros, e fonte da marca carregada', async ({ page, baseURL }) => {
+  test('terceiros limitados às integrações existentes e fonte da marca carregada', async ({ page, baseURL }) => {
     const origin = new URL(baseURL).origin;
     const thirdParty = [];
     const analytics = [];
     page.on('request', (r) => {
-      if (r.url().startsWith(origin) || r.url().startsWith('data:') || FORM_HOSTS.test(r.url())) return;
+      if (r.url().startsWith(origin) || r.url().startsWith('data:') || FORM_HOSTS.test(r.url()) || r.url() === SITE.webchatWidgetUrl) return;
       (GA_HOSTS.test(r.url()) ? analytics : thirdParty).push(r.url());
     });
     await page.goto('/');
@@ -113,6 +149,7 @@ test.describe('renderização e qualidade', () => {
       return [...document.fonts].some((f) => f.family.replace(/"/g, '') === 'Nunito' && f.status === 'loaded');
     });
     expect(loaded).toBe(true);
+    expect(await page.evaluate(() => window.__vipdeskWebchatLoaded)).toBe(true);
     expect(thirdParty).toEqual([]);
     expect(analytics).toEqual([expect.stringContaining('googletagmanager.com/gtag/js?id=G-5L7TXDVM7T')]);
   });
@@ -132,11 +169,41 @@ test.describe('renderização e qualidade', () => {
     await page.goto('/sistema-atendimento-whatsapp/');
     await expect(page.locator('h1')).toContainText('Sistema de atendimento pelo WhatsApp');
     await expect(page.locator('#perguntas summary').first()).toBeVisible();
+    await page.locator('#perguntas summary').first().click();
+    await expect(page.locator('#perguntas .resposta').first()).toBeVisible();
+    await page.goto('/blog/');
+    await page.locator('.posts a').first().click();
+    await expect(page.locator('article .resumo')).toBeVisible();
+    expect(await page.locator('article h2').count()).toBeGreaterThan(3);
+    await expect(page.locator('#contato a[href^="mailto:"]')).toBeVisible();
     await context.close();
   });
 });
 
 test.describe('navegação e CTAs', () => {
+  test('formulário preserva texto digitado e só conta lead após sucesso, inclusive reenvio', async ({ page }) => {
+    await page.goto('/crm-whatsapp/');
+    const message = page.locator('#contato [name="mensagem"]');
+    const demo = page.locator('.hero [data-cta="demo_request"]');
+    await demo.click();
+    await expect(message).toHaveValue(SITE.contactForm.pt.messages.demo_request);
+    await message.fill('Mensagem personalizada de teste');
+    await demo.click();
+    await expect(message).toHaveValue('Mensagem personalizada de teste');
+    const leads = () => page.evaluate(() => (window.dataLayer || []).map((a) => Array.from(a))
+      .filter((a) => a[0] === 'event' && a[1] === 'generate_lead'));
+    expect(await leads()).toEqual([]);
+    await page.evaluate(() => { window.__formShouldFail = true; });
+    await page.locator('#contato button[type="submit"]').click();
+    await expect(page.locator('.vd-msg-error')).toBeVisible();
+    expect(await leads()).toEqual([]);
+    await page.evaluate(() => { window.__formShouldFail = false; });
+    for (let expected = 1; expected <= 2; expected++) {
+      await page.locator('#contato button[type="submit"]').click();
+      await expect.poll(async () => (await leads()).length).toBe(expected);
+    }
+    expect((await leads())[0][2]).toEqual({ form_id: SITE.contactForm.pt.id, lead_source: 'demo_request' });
+  });
   test('menu dá acesso a todas as páginas comerciais', async ({ page, isMobile }) => {
     await page.goto('/');
     const menu = page.locator(isMobile ? 'details.menu-movel' : 'nav.nav-links details.menu');

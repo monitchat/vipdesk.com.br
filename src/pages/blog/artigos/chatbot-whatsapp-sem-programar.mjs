@@ -8,6 +8,7 @@ export default {
     'Passo a passo para montar um chatbot de WhatsApp num construtor visual de fluxos: menu, captura de dados, integração via API, IA e transferência para a equipe.',
   h1: 'Como criar um chatbot para WhatsApp sem programar',
   published: '2026-10-23',
+  modified: '2026-11-03',
   solutions: ['/deskflow/', '/sistema-atendimento-whatsapp/', '/automacao-atendimento/'],
   summary: `um chatbot de WhatsApp é um fluxo: gatilho, menu, perguntas, condições e ações. Com um
     construtor visual, você monta esse fluxo arrastando blocos, liga a conta do WhatsApp, testa num
@@ -66,6 +67,25 @@ dígitos, expressão regular), o que mantém o diagrama enxuto.</p>
 <p>É aqui que o chatbot deixa de ser um menu e passa a resolver. O bloco de requisição HTTP
 chama a API do seu sistema (ERP, e-commerce, agenda, sistema próprio) com os dados que o cliente
 informou, e a resposta vira variável para as próximas mensagens:</p>
+
+<h2>Roteiro de validação antes de atender clientes</h2>
+<p>Um fluxo que funciona com a resposta esperada ainda precisa ser testado com entradas
+imprevistas. Para um menu de orçamento, suporte e agendamento, prepare conversas de teste com
+texto livre, opção inexistente, campo vazio, pedido de pessoa humana e desistência no meio do
+caminho. Use dados fictícios identificados como teste, sem copiar conversas de clientes.</p>
+<h3>Teste as falhas de integração</h3>
+<p>Se o fluxo consulta uma API, simule indisponibilidade, demora e resposta sem o campo
+esperado. A mensagem ao cliente deve explicar o próximo passo sem expor detalhes técnicos.
+Confirme que repetir uma mensagem não cria negócios ou agendamentos duplicados: essa proteção
+precisa ser definida na integração, não presumida pelo desenho do fluxo.</p>
+<h3>Verifique a transferência</h3>
+<p>Ao pedir uma pessoa, o cliente deve chegar à fila prevista com o contexto coletado. Teste
+esse caminho durante e fora do expediente. Depois de publicar, revise os logs para localizar
+etapas abandonadas e respostas que levam à saída de erro.</p>
+<p>O <a href="/deskflow/">DeskFlow</a> oferece playground e teste de blocos para apoiar essa
+validação. Leve o roteiro à demonstração e confira o fluxo completo, incluindo o atendimento
+humano e os sistemas que a sua empresa pretende consultar.</p>
+
 <p class="destaque">“Seu pedido <code>\${{pedido.numero}}</code> está <code>\${{pedido.status}}</code>
 e deve chegar em <code>\${{pedido.previsao}}</code>.”</p>
 <p>Guarde credenciais como segredos (nunca no texto do fluxo), trate a saída de erro da chamada

@@ -7,6 +7,7 @@ export default {
     'Por que conversas de WhatsApp e de outros canais se perdem antes de virar venda e como conectar atendimento e funil comercial em seis passos.',
   h1: 'Como integrar o atendimento ao funil de vendas',
   published: '2026-10-11',
+  modified: '2026-11-03',
   solutions: ['/crm-whatsapp/', '/sistema-atendimento-whatsapp/', '/automacao-atendimento/'],
   summary: `muitas vendas se perdem entre a conversa e o CRM. Para integrar atendimento e funil,
     defina quando uma conversa vira oportunidade, distribua leads com prazo, mantenha o histórico
@@ -70,6 +71,27 @@ novas vendas a quem está satisfeito.</p>
   <li>Tempo médio entre o primeiro contato e o fechamento.</li>
   <li>Quantidade de oportunidades sem próximo passo definido.</li>
 </ul>
+
+<h2>Exemplo prático: do pedido de orçamento ao próximo contato</h2>
+<p>Imagine uma empresa de serviços recebendo pelo WhatsApp um pedido de instalação. O atendente
+entende a necessidade e identifica que há intenção de compra. Esse é o gatilho para registrar
+uma oportunidade, vinculada ao contato, com responsável, etapa de qualificação e próximo passo:
+confirmar os detalhes necessários para preparar a proposta.</p>
+<p>Quando a proposta é enviada, o vendedor muda a etapa e define o retorno. Se a pessoa responde
+com uma dúvida, o atendimento consulta a negociação antes de responder. Um chamado de suporte de
+um cliente antigo não vira uma nova venda automaticamente: precisa existir um interesse comercial
+identificado. Essa distinção evita inflar o funil com contatos que não são oportunidades.</p>
+<h3>Campos mínimos para a passagem entre equipes</h3>
+<ul>
+  <li>Contato vinculado e canal em que a conversa começou.</li>
+  <li>Necessidade descrita com as palavras do cliente.</li>
+  <li>Responsável, etapa, próximo passo e prazo combinado.</li>
+  <li>Resumo do que já foi informado ou prometido.</li>
+</ul>
+<p>Ao avaliar um <a href="/crm-whatsapp/">CRM integrado ao WhatsApp</a>, peça para percorrer
+esse caminho na demonstração. Confira a continuidade do histórico e como o follow-up é
+interrompido quando há resposta, em vez de avaliar apenas a aparência do funil.</p>
+
 <p class="destaque">No VipDesk, atendimento e CRM ficam na mesma base: funis configuráveis,
 distribuição automática de leads, propostas, contratos, metas e follow-ups que param quando o
 cliente responde. Conheça o <a href="/crm-whatsapp/">CRM para WhatsApp</a>.</p>

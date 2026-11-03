@@ -1,0 +1,41 @@
+[
+  {
+    "url": "http://localhost:4173/",
+    "runs": 3,
+    "mode": "isolated-first-party",
+    "fcp_ms": 408,
+    "lcp_ms": 408,
+    "cls": 0,
+    "max_test_interaction_ms": 24,
+    "transfer_kb": 92,
+    "dom_nodes": 439,
+    "failed_requests": [],
+    "console_errors": []
+  },
+  {
+    "url": "http://localhost:4173/deskflow/",
+    "runs": 3,
+    "mode": "isolated-first-party",
+    "fcp_ms": 408,
+    "lcp_ms": 408,
+    "cls": 0,
+    "max_test_interaction_ms": 24,
+    "transfer_kb": 175,
+    "dom_nodes": 478,
+    "failed_requests": [],
+    "console_errors": []
+  },
+  {
+    "url": "http://localhost:4173/blog/whatsapp-varios-atendentes/",
+    "runs": 3,
+    "mode": "isolated-first-party",
+    "fcp_ms": 392,
+    "lcp_ms": 392,
+    "cls": 0,
+    "max_test_interaction_ms": 16,
+    "transfer_kb": 83,
+    "dom_nodes": 317,
+    "failed_requests": [],
+    "console_errors": []
+  }
+]

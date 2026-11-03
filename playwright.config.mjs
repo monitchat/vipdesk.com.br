@@ -11,7 +11,13 @@ export default defineConfig({
   workers: REMOTE ? 2 : undefined,
   retries: REMOTE ? 1 : 0,
   reporter: [['list']],
-  use: { baseURL: REMOTE || `http://localhost:${PORT}` },
+  use: {
+    baseURL: REMOTE || `http://localhost:${PORT}`,
+    // Permite usar um Chromium já instalado em ambientes sem o download da revisão padrão.
+    launchOptions: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
+      ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH }
+      : {},
+  },
   webServer: REMOTE
     ? undefined
     : {

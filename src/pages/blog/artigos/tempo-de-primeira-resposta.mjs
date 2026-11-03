@@ -7,6 +7,7 @@ export default {
     'O que é o tempo de primeira resposta, como medir corretamente e oito práticas para reduzi-lo no WhatsApp e nos demais canais sem sobrecarregar a equipe.',
   h1: 'Como reduzir o tempo de primeira resposta no atendimento',
   published: '2026-10-11',
+  modified: '2026-11-03',
   solutions: ['/automacao-atendimento/', '/atendimento-omnichannel/', '/crm-whatsapp/'],
   summary: `o tempo de primeira resposta mede quanto o cliente espera até ser atendido por
     alguém. Para reduzi-lo, junte os canais numa fila só, distribua os contatos automaticamente,
@@ -85,6 +86,27 @@ Nenhuma automação compensa uma equipe subdimensionada no horário de pico.</p>
   <li>Acompanhe a mediana e a proporção de contatos atendidos dentro do prazo.</li>
   <li>Cruze com resultados de negócio: leads convertidos, chamados resolvidos e reclamações.</li>
 </ol>
+
+<h2>Exemplo de cálculo sem esconder a espera</h2>
+<p>Num exemplo hipotético, a operação abre às 8h. Uma mensagem chega às 7h50, o robô confirma o
+recebimento às 8h e uma pessoa responde às 8h12. O tempo até a primeira resposta humana é de
+22 minutos corridos ou 12 minutos dentro do expediente. Nenhum dos dois números deve ser
+apresentado sem explicar a regra; o aviso automático deve ser medido separadamente.</p>
+<p>Se um relatório mede a primeira resposta de qualquer tipo, ele responde a uma pergunta
+diferente do indicador de resposta humana. Não compare os dois como se fossem equivalentes.
+Defina também como tratar conversas reabertas e transferidas, para não reiniciar o relógio de
+forma que esconda a espera anterior.</p>
+<h3>Um acompanhamento semanal útil</h3>
+<ul>
+  <li>Separe canal, turno e tipo de demanda.</li>
+  <li>Observe a mediana, os casos mais demorados e a proporção dentro do prazo.</li>
+  <li>Leia uma amostra dos atrasos para identificar a causa: fila, transferência ou falta de informação.</li>
+  <li>Escolha uma mudança e compare períodos com volume e expediente semelhantes.</li>
+</ul>
+<p>Os chamados com SLA e os alertas descritos na <a href="/automacao-atendimento/">automação
+do VipDesk</a> apoiam a gestão de prazos. Confirme na demonstração quais dados e filtros atendem
+à sua regra de medição; não presuma que todo relatório calcula o indicador da mesma forma.</p>
+
 <p class="destaque">No VipDesk, os chamados têm prazos de primeira resposta e de resolução, com
 alertas antes do vencimento e escalonamento automático, e os leads têm prazo de primeiro contato
 com redistribuição. Veja a <a href="/automacao-atendimento/">automação de atendimento</a>.</p>

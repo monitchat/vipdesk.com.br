@@ -7,6 +7,7 @@ export default {
     'Passo a passo para colocar uma equipe inteira atendendo no mesmo WhatsApp: fila, regras de posse, histórico, prazos, mensagens padrão e indicadores.',
   h1: 'Como organizar o atendimento pelo WhatsApp com vários atendentes',
   published: '2026-10-11',
+  modified: '2026-11-03',
   solutions: ['/sistema-atendimento-whatsapp/', '/atendimento-omnichannel/', '/automacao-atendimento/'],
   summary: `para várias pessoas atenderem bem no mesmo WhatsApp, a empresa precisa de quatro
     coisas: uma fila única, uma regra clara de quem é o dono de cada conversa, histórico que fique
@@ -98,6 +99,26 @@ WhatsApp segue regras e tarifas próprias da Meta.</p>
   <li>Encaminhe oportunidades de venda para um funil.</li>
   <li>Revise as práticas de consentimento e o método de conexão do número.</li>
 </ol>
+
+<h2>Exemplo prático: uma equipe que alterna vendas e suporte</h2>
+<p>Considere uma operação hipotética com pessoas em dois turnos. Uma cliente pede um orçamento
+pela manhã e volta à tarde com uma dúvida sobre a proposta. A regra pode ser: quem assumiu o
+orçamento mantém a negociação no CRM; quem atende no turno seguinte consulta o histórico,
+registra a nova dúvida e encaminha ao responsável comercial. O cliente não precisa recomeçar.</p>
+<p>Para colocar essa regra em prática, registre o motivo do contato, o responsável atual e o
+próximo passo antes de transferir. Se a solicitação depender de uma análise técnica, abra um
+chamado com prazo e explique ao cliente como receberá o retorno. Uma transferência só termina
+quando a equipe de destino sabe o que precisa fazer.</p>
+<h3>O que conferir numa demonstração de multiatendimento</h3>
+<ul>
+  <li>Abra uma conversa com dois usuários e confira como aparece o responsável.</li>
+  <li>Transfira entre setores e verifique se mensagens e contexto continuam acessíveis.</li>
+  <li>Simule a troca de turno e uma conversa ainda sem resposta.</li>
+  <li>Confira quais permissões limitam o acesso a contatos e ao histórico.</li>
+</ul>
+<p>Esses testes ajudam a comparar um <a href="/sistema-atendimento-whatsapp/">sistema de
+multiatendimento</a> com o processo real da empresa, antes de discutir quantidade de usuários.</p>
+
 <p class="destaque">No VipDesk, a fila compartilhada, o histórico unificado por contato, os
 chamados com SLA e o funil de vendas ficam na mesma plataforma. Conheça o
 <a href="/sistema-atendimento-whatsapp/">sistema de atendimento pelo WhatsApp para equipes</a>.</p>
